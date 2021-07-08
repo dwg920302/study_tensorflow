@@ -3,29 +3,30 @@ from tensorflow.keras.layers import Dense
 import numpy as np
 
 # 1 데이터
-x = np.array([1,2,3])
-y = np.array([1,2,3])
+x = np.array([1,2,3,4,5])
+y = np.array([1,2,4,3,5,6])
 
 # 2 모델
 model = Sequential()
-model.add(Dense(1, input_dim=1))
+model.add(Dense(5, input_dim=1))
+model.add(Dense(2))
+model.add(Dense(1))
 
 # 3 컴파일, 훈련
 model.compile(loss='mse', optimizer='adam')
 
-model.fit(x, y, epochs=2500, batch_size=1)
-#epochs=학습 회수, batch_size=학습시킬 표본의 단위 크기
+model.fit(x, y, epochs=500, batch_size=5)
 
 # 4 평가, 예측
 loss = model.evaluate(x, y)
 print('loss : ', loss)
 
-result = model.predict([4])
+result = model.predict([6])
 print('예측값 : ', result)
 
 '''
-[Best Fit]
-epochs=2500, batch_size=1
-loss :  0.0
-예측값 :  [[4.]]
+ValueError: Data cardinality is ambiguous:
+  x sizes: 5
+  y sizes: 6
+Make sure all arrays contain the same number of samples.
 '''

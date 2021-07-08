@@ -23,5 +23,15 @@ model.compile(loss='mse', optimizer='adam')
 model.fit(x, y, epochs=10000, batch_size=5)
 
 # 4-평가 및 예측
+loss = model.evaluate(x, y)
+print('loss : ', loss)
+
 result = model.predict(x_pred)
 print('예측 값 : ', result)
+
+'''
+[Best Fit]
+epochs=10000, batch_size=5
+loss :  0.3800000250339508
+예측 값 :  [[5.7]]
+'''
