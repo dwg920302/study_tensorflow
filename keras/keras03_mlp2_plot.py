@@ -41,10 +41,12 @@ x_pred = np.array([[10, 1.3, 1]])
 result = model.predict(x_pred)
 print('예측 값 : ', result)
 
+x_plot = np.transpose(x)
 y_pred = model.predict(x)
 
-plt.scatter(x, y)
-plt.plot(x, y_pred, color='red')
+for x in x_plot:
+    plt.scatter(x, y)
+    plt.plot(x, y_pred)
 plt.show()
 
 '''

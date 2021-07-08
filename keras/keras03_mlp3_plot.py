@@ -43,11 +43,15 @@ x_pred = np.array([[0, 21, 201]])
 result = model.predict(x_pred)
 print('예측 값 : ', result)
 
+x_plot = np.transpose(x)
 y_pred = model.predict(x)
 
-plt.scatter(x, y)
-plt.plot(x, y_pred, color='red')
-plt.show()
+for x in x_plot:
+    for i in range(3):  # 3 안에 다른 적합한 값을 찾아야 함
+        plt.scatter(x, np.transpose(y)[i])
+        plt.plot(x, np.transpose(y_pred)[i])
+    plt.show()
+
 
 
 '''

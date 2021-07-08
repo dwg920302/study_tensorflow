@@ -1,6 +1,7 @@
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense
 import numpy as np
+import matplotlib.pyplot as plt
 
 # 데이터 구성
 x = np.array([range(10)])
@@ -39,6 +40,12 @@ x_pred = np.array([[9]])
 
 result = model.predict(x_pred)
 print('예측 값 : ', result)
+
+y_pred = model.predict(x)
+
+plt.scatter(x, y)
+plt.plot(x, y_pred, color='red')
+plt.show()
 
 '''
 [Best Fit]
