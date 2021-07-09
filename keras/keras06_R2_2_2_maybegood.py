@@ -4,6 +4,7 @@
 
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense
+
 from sklearn.metrics import r2_score
 
 import numpy as np
@@ -16,6 +17,8 @@ x_pred=[6]
 x = np.array(x)
 y = np.array(y)
 
+# y의 Data를 Sort하면 아주 쉽게 풀 수 있겠지만 그게 정답은 아닐 거 같음.
+
 # 2-모델 구성
 model = Sequential()
 model.add(Dense(1, input_dim=1))
@@ -24,8 +27,8 @@ model.add(Dense(2))
 model.add(Dense(1))
 
 # 3-모델 컴파일 및 훈련
-model.compile(loss='mse', optimizer='adam')
-model.fit(x, y, epochs=10000, batch_size=10)
+model.compile(loss='mean_squared_error', optimizer='adam', metrics=["acc"])
+model.fit(x, y, epochs=5000, batch_size=5)
 
 # 4-평가 및 예측
 loss = model.evaluate(x, y)

@@ -8,6 +8,7 @@
 
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense
+from tensorflow.keras.layers import Dropout
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import r2_score
 import numpy as np
@@ -17,7 +18,7 @@ import numpy as np
 x = np.array(range(100))
 y = np.array(range(1, 101))
 
-x_train, x_test, y_train, y_test = train_test_split(x, y, train_size=0.7, shuffle=True, random_state=55)
+x_train, x_test, y_train, y_test = train_test_split(x, y, train_size=0.7, shuffle=True)
 
 print('x = ', x_train, ', ' ,x_test)
 print('y = ', y_train, ', ' ,y_test)
@@ -32,10 +33,13 @@ model.add(Dense(25))
 model.add(Dense(1000))
 model.add(Dense(25))
 model.add(Dense(10))
+model.add(Dropout(0.8))
+model.add(Dropout(0.5))
+# 가중치 값에 강제로 변화를 줌
 model.add(Dense(1))
 
 # 3 컴파일, 훈련
-model.compile(loss='mse', optimizer='ftrl', run_eagerly=False)
+model.compile(loss='mse', optimizer='adam')
 
 model.fit(x_train, y_train, epochs=100, batch_size=1)
 
@@ -58,7 +62,38 @@ print('r2 = ', r2)
 # plt.show()
 
 '''
-[Best Fit]
-epochs=1000, batch_size=1
-
+[Best Worst Fit]
+epochs=100, batch_size=1
+loss :  611.025146484375
+예측값 =  [[35.14232  ]
+ [ 7.6467104]
+ [44.30752  ]
+ [52.45437  ]
+ [ 8.155888 ]
+ [23.940405 ]
+ [19.866978 ]
+ [10.1926   ]
+ [41.76163  ]
+ [32.596428 ]
+ [15.793556 ]
+ [13.247666 ]
+ [31.57807  ]
+ [12.229312 ]
+ [28.523006 ]
+ [26.99547  ]
+ [24.44958  ]
+ [38.706562 ]
+ [24.958757 ]
+ [47.871773 ]
+ [ 3.0641088]
+ [34.633137 ]
+ [44.816696 ]
+ [33.61478  ]
+ [42.270805 ]
+ [19.357801 ]
+ [21.394512 ]
+ [45.83506  ]
+ [ 4.5916424]
+ [ 5.6099987]]
+r2 =  0.22062671407706014
 '''
