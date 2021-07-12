@@ -45,7 +45,8 @@ x_train, x_test, y_train, y_test = train_test_split(x, y, train_size=0.75, rando
 # 컴파일 및 훈련
 
 model.compile(loss="mse", optimizer='adam')
-model.fit(x_train, y_train, batch_size=1, epochs=0)
+model.fit(x_train, y_train, batch_size=1, epochs=500, verbose=0)
+# batch_size (default 32)
 
 # 평가(evaluate) 및 예측
 
