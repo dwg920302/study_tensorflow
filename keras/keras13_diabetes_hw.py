@@ -1,3 +1,7 @@
+# 과제 01. R2를 0.62 이상으로 올리기 (완료)
+
+# 메일에 과제의 코드를 임포트하지 말고 깃허브 주소만 적어서 보내기
+
 import numpy as np
 import pandas as pd
 from sklearn.datasets import load_diabetes
@@ -42,10 +46,13 @@ print('R2 = ', r2)
 [Best Fit]
 Tree (32(+relu), 256, 64, 16(+relu), 1, )
 batch_size=8, epochs=100
+loss =  2099.510498046875
+R2 =  0.6371679992311489
+
+[Better Fit]
+Tree (32(+relu), 256, 64, 16(+relu), 1, )
+batch_size=8, epochs=100
 loss =  2189.971435546875
 R2 =  0.6215347858833828
 '''
 
-# 과제 01. R2를 0.62 이상으로 올리기
-
-# 메일에 과제의 코드를 임포트하지 말고 깃허브 주소만 적어서 보내기

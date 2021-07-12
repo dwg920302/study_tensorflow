@@ -21,14 +21,13 @@ y = np.array(y)
 
 # 2-모델 구성
 model = Sequential()
-model.add(Dense(1, input_dim=1))
-model.add(Dense(5))
+model.add(Dense(2, input_dim=1))
 model.add(Dense(2))
 model.add(Dense(1))
 
 # 3-모델 컴파일 및 훈련
-model.compile(loss='mean_squared_error', optimizer='adam', metrics=["acc"])
-model.fit(x, y, epochs=5000, batch_size=5)
+model.compile(loss='mse', optimizer='adam')
+model.fit(x, y, epochs=50, batch_size=1)
 
 # 4-평가 및 예측
 loss = model.evaluate(x, y)
