@@ -1,13 +1,9 @@
-# 과제 01. R2를 0.62 이상으로 올리기 (완료)
-
-# 메일에 과제의 코드를 임포트하지 말고 깃허브 주소만 적어서 보내기
-
 import numpy as np
 import pandas as pd
 from sklearn.datasets import load_diabetes
 from sklearn.model_selection import train_test_split
-from tensorflow.keras.models import Sequential
-from tensorflow.keras.layers import Dense
+from tensorflow.keras.models import Sequential, Model
+from tensorflow.keras.layers import Dense, Input
 from sklearn.metrics import r2_score
 
 dataset = load_diabetes()
@@ -22,12 +18,21 @@ x_train, x_test, y_train, y_test = train_test_split(x, y, train_size=0.95, shuff
 
 # 모델구성
 
-model = Sequential()
-model.add(Dense(32, input_shape=(10, ), activation='relu'))
-model.add(Dense(256))
-model.add(Dense(64))
-model.add(Dense(16, activation='relu'))
-model.add(Dense(1))
+# model = Sequential()
+# model.add(Dense(32, input_shape=(10, ), activation='relu'))
+# model.add(Dense(256))
+# model.add(Dense(64))
+# model.add(Dense(16, activation='relu'))
+# model.add(Dense(1))
+
+input_1 = Input(shape=(10, ))
+dense_1 = Dense(32)(input_1)
+dense_2 = Dense(256)(dense_1)
+dense_3 = Dense(64)(dense_2)
+dense_4 = Dense(16)(dense_3)
+output_1 = Dense(1)(dense_4)
+model = Model(inputs = input_1, outputs = output_1) 
+
 
 # 컴파일 및 훔련
 model.compile(optimizer='adam', loss='mse')
@@ -41,18 +46,3 @@ y_pred = model.predict(x_test)
 
 r2 = r2_score(y_test, y_pred)
 print('R2 = ', r2)
-
-'''
-[Best Fit]
-Tree (32(+relu), 256, 64, 16(+relu), 1, )
-batch_size=8, epochs=100
-loss =  2099.510498046875
-R2 =  0.6371679992311489
-
-[Better Fit]
-Tree (32(+relu), 256, 64, 16(+relu), 1, )
-batch_size=8, epochs=100
-loss =  2189.971435546875
-R2 =  0.6215347858833828
-'''
-

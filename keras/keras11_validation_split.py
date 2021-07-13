@@ -7,7 +7,7 @@ import numpy as np
 x = np.array(range(1, 16))
 y = np.array(range(1, 16))
 
-x_train, y_train, x_test, y_test = train_test_split(x, y, train_size=0.8, shuffle=True)
+x_train, x_test, y_train, y_test = train_test_split(x, y, train_size=0.8, shuffle=True)
 
 #데이터가 한쪽으로 과적합 되는 걸 막기 위해 shuffle 뒤에 train/test/valid를 나눔.
 

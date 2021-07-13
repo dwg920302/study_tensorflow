@@ -1,6 +1,7 @@
 # HW 2
 # R2_2에서,
-# R2를 0.9 이상으로, 최대로 만들어보기 (근데 이거 되나?)
+# R2를 0.9 이상으로, 최대로 만들어보기
+# 0.9는 아직 못함. 뭔 짓을 해도 0.81 이상이 안 됨..
 
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense
@@ -22,21 +23,20 @@ y = np.array(y)
 # 2-모델 구성
 model = Sequential()
 model.add(Dense(2, input_dim=1))
-model.add(Dense(2))
 model.add(Dense(1))
 
 # 3-모델 컴파일 및 훈련
 model.compile(loss='mse', optimizer='adam')
-model.fit(x, y, epochs=50, batch_size=1)
+model.fit(x, y, epochs=250, batch_size=5)
 
 # 4-평가 및 예측
 loss = model.evaluate(x, y)
 print('loss : ', loss)
 
-y_predict = model.predict(x)
-print('예측 값 : ', y_predict)
+y_pred = model.predict(x_pred)
+print('예측 값 : ', y_pred)
 
-r2 = r2_score(y, y_predict)
+r2 = r2_score(y, y_pred)
 print('r2 = ', r2)
 
 '''
