@@ -39,9 +39,10 @@ print(datasets.DESCR)
 # model.add(Dense(1))
 
 input_1 = Input(shape=(13, ))
-dense_1 = Dense(8)(input_1)
-dense_2 = Dense(16)(dense_1)
-dense_3 = Dense(4)(dense_2)
+dense_1 = Dense(64, activation='relu')(input_1)
+dense_2 = Dense(512, activation='relu')(dense_1)
+dense_3 = Dense(128, activation='relu')(dense_2)
+dense_3 = Dense(32, activation='relu')(dense_2)
 output_1 = Dense(1)(dense_3)
 model = Model(inputs = input_1, outputs = output_1)
 
@@ -49,12 +50,12 @@ model = Model(inputs = input_1, outputs = output_1)
 
 # train test 나누기
 
-x_train, x_test, y_train, y_test = train_test_split(x, y, train_size=0.75, random_state=47)
+x_train, x_test, y_train, y_test = train_test_split(x, y, train_size=0.95, shuffle=True, random_state=47)
 
 # 컴파일 및 훈련
 
 model.compile(loss="mse", optimizer='adam')
-model.fit(x_train, y_train, batch_size=1, epochs=500, verbose=0)
+model.fit(x_train, y_train, batch_size=1, epochs=100, verbose=1, validation_split=1/19, shuffle=True)
 # batch_size (default 32)
 
 # 평가(evaluate) 및 예측
@@ -69,3 +70,9 @@ print('예측값 = ', y_pred)
 
 r2 = r2_score(y_test, y_pred)
 print('R2 = ', r2)
+
+'''
+[Best Fit]
+batch_size=32, epochs=2500
+R2 =  0.7974067333919792
+'''

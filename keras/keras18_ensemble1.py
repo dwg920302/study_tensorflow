@@ -49,7 +49,7 @@ model.summary()
 # 컴파일, 훈련
 
 model.compile(loss='mse', optimizer='adam', metrics=['mae'])
-model.fit([x1_train, x2_train], y1_train, batch_size=10, epochs=1000, verbose=1, validation_split=3/17, shuffle=True)
+model.fit([x1_train, x2_train], y1_train, batch_size=10, epochs=100, verbose=1, validation_split=3/17, shuffle=True)
 
 # 평가, 예측
 results = model.evaluate([x1_test, x2_test], y1_test)

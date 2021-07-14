@@ -54,9 +54,10 @@ results = model.evaluate(x1_test, [y1_test, y2_test])
 print('loss : ', results[0])
 print('mae : ', results[1])
 
-# y_predict = model.predict([x1, x2])
+y_predict = model.predict(x1)
+# print(y_predict.shape)
 
-# r2 = r2_score([y1, y2], y_predict)
+# r2 = r2_score(y_true=[y1, y2], y_pred=y_predict)
 # print(r2)
 
 '''
