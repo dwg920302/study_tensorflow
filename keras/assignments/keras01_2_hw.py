@@ -20,7 +20,7 @@ model.add(Dense(1, input_dim=1))
 
 # 3-모델 컴파일 및 훈련
 model.compile(loss='mse', optimizer='adam')
-model.fit(x, y, epochs=10000, batch_size=5)
+model.fit(x, y, epochs=5000, batch_size=5)
 
 # 4-평가 및 예측
 loss = model.evaluate(x, y)

@@ -22,12 +22,12 @@ y = np.array(y)
 
 # 2-모델 구성
 model = Sequential()
-model.add(Dense(2, input_dim=1))
+model.add(Dense(4, input_dim=1))
 model.add(Dense(1))
 
 # 3-모델 컴파일 및 훈련
 model.compile(loss='mse', optimizer='adam')
-model.fit(x, y, epochs=250, batch_size=5)
+model.fit(x, y, epochs=10000, batch_size=5)
 
 # 4-평가 및 예측
 loss = model.evaluate(x, y)
@@ -36,6 +36,7 @@ print('loss : ', loss)
 y_pred = model.predict(x_pred)
 print('예측 값 : ', y_pred)
 
+y_pred = model.predict(x)
 r2 = r2_score(y, y_pred)
 print('r2 = ', r2)
 
