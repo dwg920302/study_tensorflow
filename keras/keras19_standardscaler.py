@@ -1,10 +1,8 @@
 from sklearn.datasets import load_boston
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import r2_score
-from tensorflow.keras.models import Sequential, Model
+from tensorflow.keras.models import Model
 from tensorflow.keras.layers import Dense, Input
-from tensorflow.keras.layers import Activation
-from sklearn.preprocessing import MinMaxScaler
 from sklearn.preprocessing import StandardScaler
 import numpy as np
 
