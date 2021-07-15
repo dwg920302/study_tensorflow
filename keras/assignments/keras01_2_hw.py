@@ -4,6 +4,8 @@
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense
 
+from tensorflow.keras.layers import Activation
+
 import numpy as np
 
 x = [1,2,3,4,5]
