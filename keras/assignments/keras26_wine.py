@@ -12,9 +12,6 @@ from sklearn.preprocessing import MaxAbsScaler
 
 dataset = load_wine()
 
-print(dataset.DESCR)
-print(dataset.feature_names)
-
 # ['alcohol', 'malic_acid', 'ash', 'alcalinity_of_ash', 'magnesium', 'total_phenols', 'flavanoids', 'nonflavanoid_phenols', 'proanthocyanins', 'color_intensity', 'hue', 'od280/od315_of_diluted_wines', 'proline']
 
 x = dataset.data
@@ -44,11 +41,11 @@ x_train = scaler.transform(x_train)
 x_test = scaler.transform(x_test)
 
 
-es = EarlyStopping(monitor='loss', patience=25, mode='min', verbose=1)
+es = EarlyStopping(monitor='val_loss', patience=25, mode='min', verbose=1)
 
 model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])
 
-model.fit(x_train, y_train, batch_size=1, epochs=500, verbose=1, validation_split=1/3, shuffle=True, callbacks=[es])
+model.fit(x_train, y_train, batch_size=1, epochs=100, verbose=1, validation_split=1/3, shuffle=True, callbacks=[es])
 loss = model.evaluate(x_test, y_test)
 
 print('loss = ', loss[0], ', accuracy = ', loss[1])
