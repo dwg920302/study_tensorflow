@@ -48,11 +48,11 @@ model.add(Dense(10, activation='sigmoid'))
 
 # compile
 
-es = EarlyStopping(monitor='val_accuracy', patience=50, mode='max', verbose=1)
+es = EarlyStopping(monitor='val_accuracy', patience=250, mode='max', verbose=1)
 
 model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])
 
-hist = model.fit(x_train, y_train, batch_size=50, epochs=250, verbose=2, validation_split=1/14, callbacks=[es])
+hist = model.fit(x_train, y_train, batch_size=50, epochs=500, verbose=2, validation_split=1/12, callbacks=[es])
 
 # evaluate
 
@@ -61,4 +61,4 @@ loss = model.evaluate(x_test, y_test)
 print('loss = ', loss[0], ', accuracy = ', loss[1])
 
 # with NO Scaler
-# loss =  0.9593672752380371 , accuracy =  0.984000027179718
+# loss =  3.260441780090332 , accuracy =  0.9855999946594238

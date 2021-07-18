@@ -7,9 +7,9 @@ import numpy as np
 print(x_train.shape, y_train.shape)
 print(x_test.shape, y_test.shape)
 
-print(x_train[7], ' : ', y_train[7])
+print(x_train[12], ' : ', y_train[12])
 
-plt.imshow(x_train[7], 'gray')
+plt.imshow(x_train[12], 'viridis')
 plt.show()
 
 print(np.unique(y_train))

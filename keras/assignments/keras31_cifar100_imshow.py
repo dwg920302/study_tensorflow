@@ -1,7 +1,15 @@
 from tensorflow.keras.datasets import cifar100
+import matplotlib.pyplot as plt
+import numpy as np
 
-# 이미지가 (32, 32, 3)
+(x_train, y_train), (x_test, y_test) = cifar100.load_data()
 
-dataset = cifar100()
+print(x_train.shape, y_train.shape)
+print(x_test.shape, y_test.shape)
 
-# 완성하시오
+print(x_train[7], ' : ', y_train[7])
+
+plt.imshow(x_train[7], 'viridis')
+plt.show()
+
+print(np.unique(y_train))
