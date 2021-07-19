@@ -22,7 +22,7 @@ x_test = x_test.reshape(10000, 28, 28, 1)
 
 encoder = OneHotEncoder(sparse=False)
 y_train = encoder.fit_transform(y_train.reshape(-1, 1))
-y_test = encoder.fit_transform(y_test.reshape(-1, 1))
+y_test = encoder.transform(y_test.reshape(-1, 1))
 
 print(np.unique(y_train))
 

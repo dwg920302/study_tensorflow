@@ -34,23 +34,23 @@ x_test = x_test.reshape(10000, 32, 32, 3)
 
 # 2. model
 from tensorflow.keras.models import Sequential
-from tensorflow.keras.layers import Dense, Conv2D, Flatten, MaxPool2D, Dropout, GlobalAvgPool2D
+from tensorflow.keras.layers import Dense, Conv2D, AvgPool2D, MaxPool2D, Dropout, GlobalAvgPool2D
 
 model = Sequential()
 model.add(Conv2D(filters=64, kernel_size=(2, 2),                          
                         padding='valid', activation='relu', 
                         input_shape=(32, 32, 3)))
-model.add(Dropout(0.15))
+model.add(Dropout(4/30))
 model.add(Conv2D(64, (2, 2), padding='same', activation='relu'))                   
 model.add(MaxPool2D())
 
 model.add(Conv2D(64, (2, 2), padding='valid', activation='relu'))
-model.add(Dropout(0.15))                   
+model.add(Dropout(4/30))                   
 model.add(Conv2D(64, (2, 2), padding='same', activation='relu'))    
-model.add(MaxPool2D())
+model.add(AvgPool2D())
 
 model.add(Conv2D(64, (2, 2), activation='relu'))
-model.add(Dropout(0.15))                   
+model.add(Dropout(4/30))                   
 model.add(Conv2D(64, (2, 2), padding='same', activation='relu'))
 
 model.add(GlobalAvgPool2D())
@@ -61,14 +61,14 @@ model.add(Dense(100, activation='softmax'))
 model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['accuracy'])
 
 from tensorflow.keras.callbacks import EarlyStopping
-es = EarlyStopping(monitor='val_loss', patience=25, mode='min', verbose=1)
+es = EarlyStopping(monitor='val_accuracy', patience=30, mode='max', verbose=1)
 
 start_time = time.time()
 hist = model.fit(x_train, y_train, epochs=200, batch_size=64, verbose=2,
-    validation_split=0.05, callbacks=[es])
+    validation_split=0.02, callbacks=[es])
 elapsed_time = time.time() - start_time
 
-# 4. predict eval -> no need to
+# 4. evaluate
 
 loss = model.evaluate(x_test, y_test, batch_size=64)
 print('time : ', elapsed_time)
@@ -99,9 +99,16 @@ plt.show()
 
 '''
 [Best Fit]
-Epoch 00108: early stopping
-157/157 [==============================] - 0s 3ms/step - loss: 1.9578 - accuracy: 0.4913
-time :  594.8994452953339
-loss[category] :  1.9577749967575073
-loss[accuracy] :  0.49129998683929443
+Epoch 00162: early stopping
+157/157 [==============================] - 1s 3ms/step - loss: 1.9620 - accuracy: 0.4963
+time :  917.327419757843
+loss[category] :  1.961956262588501
+loss[accuracy] :  0.49630001187324524
+
+[Better Fit]
+Epoch 00082: early stopping
+157/157 [==============================] - 1s 3ms/step - loss: 1.9348 - accuracy: 0.4946
+time :  459.5307447910309
+loss[category] :  1.9347658157348633
+loss[accuracy] :  0.49459999799728394
 '''
