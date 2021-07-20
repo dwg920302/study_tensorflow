@@ -15,8 +15,8 @@ x = x.reshape(4, 3, 1)
 # Model
 
 model = Sequential()
-model.add(SimpleRNN(units=10, activation='relu', input_shape=(3, 1)))
-# model.add(SimpleRNN(units=25, input_length=3, input_dim=1, activation='relu')) # 같은 식
+model.add(SimpleRNN(units=10, input_length=3, input_dim=1, activation='relu')) 
+# model.add(SimpleRNN(units=10, activation='relu', input_shape=(3, 1))) # 같은 식
 model.add(Dense(10, activation='relu'))
 model.add(Dense(1))
 
@@ -31,6 +31,8 @@ model.fit(x, y, epochs=2500, batch_size=1, callbacks=[es])
 
 # Predict
 
+es = EarlyStopping(monitor='loss', mode='min', patience=250)
+
 x_input = np.array([5,6,7]).reshape(1, 3, 1)
 res = model.predict(x_input)
 
@@ -39,10 +41,10 @@ res = model.predict(x_input)
 print(res)
 
 '''
-Epoch 1802/2500
-4/4 [==============================] - 0s 5ms/step - loss: 0.0000e+00 - accuracy: 0.0000e+00
-Epoch 01802: early stopping
-[[8.]]
+Epoch 2255/2500
+4/4 [==============================] - 0s 3ms/step - loss: 0.0000e+00 - accuracy: 0.0000e+00
+Epoch 02255: early stopping
+[[7.9999995]]
 '''
 
 '''

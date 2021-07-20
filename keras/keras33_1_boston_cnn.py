@@ -26,7 +26,7 @@ model.add(Conv1D(filters=8, kernel_size=1,
 model.add(Conv1D(16, 1, padding='same', activation='relu'))
 # model.add(Dropout(0.1))               
 # model.add(MaxPool1D())
-# model.add(GlobalAvgPool1D())
+model.add(GlobalAvgPool1D())
 model.add(Dense(1, activation='sigmoid'))
 
 # model.summary()
