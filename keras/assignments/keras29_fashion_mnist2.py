@@ -41,7 +41,7 @@ model.add(Dense(256, activation='relu'))
 model.add(Dense(64))
 model.add(Dense(10, activation='softmax'))
 
-
+print(x_train.shape, y_train.shape)
 
 # compile
 

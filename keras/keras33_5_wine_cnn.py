@@ -1,7 +1,7 @@
 import pandas as pd
 from sklearn.model_selection import train_test_split
 from tensorflow.keras.models import Sequential
-from tensorflow.keras.layers import Dense, Conv1D, Dropout
+from tensorflow.keras.layers import Dense, Conv1D, Dropout, GlobalAvgPool1D
 from tensorflow.keras.callbacks import EarlyStopping
 from sklearn.preprocessing import StandardScaler, MinMaxScaler, MaxAbsScaler, RobustScaler
 from sklearn.preprocessing import QuantileTransformer, PowerTransformer, Normalizer
@@ -37,16 +37,16 @@ x_test = scaler.transform(x_test).reshape(x_test.shape[0], 11, 1)
 # Model
 
 model = Sequential()
-model.add(Conv1D(filters=16, kernel_size=1,                   
+model.add(Conv1D(filters=16, kernel_size=(1, ),                   
                         padding='same', 
                         input_shape=(11, 1)))
-model.add(Conv1D(32, 1, padding='same'))
-model.add(Conv1D(128, 1, padding='same'))
+model.add(Conv1D(32, (1, ), padding='same'))
+model.add(Conv1D(128, (1, ), padding='same'))
 model.add(Dropout(0.1))
-model.add(Conv1D(256, 1, padding='same', activation='relu'))               
+model.add(Conv1D(256, (1, ), padding='same', activation='relu'))               
+model.add(Conv1D(32, (1, ), padding='same'))
 # model.add(MaxPool1D())
-# model.add(GlobalAvgPool1D())
-model.add(Conv1D(32, 1, padding='same'))
+model.add(GlobalAvgPool1D())
 model.add(Dense(7, activation='linear'))
     
 # es = EarlyStopping(monitor='loss', patience=50, mode='min', verbose=1)
@@ -61,3 +61,5 @@ model.fit(x_train, y_train, batch_size=32, epochs=200, verbose=2, shuffle=True, 
 loss = model.evaluate(x_test, y_test)
 
 print('loss = ', loss[0], ', accuracy = ', loss[1])
+
+# 6.025832176208496 , accuracy =  0.028309741988778114
