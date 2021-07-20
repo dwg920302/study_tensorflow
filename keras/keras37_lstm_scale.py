@@ -39,8 +39,6 @@ model.fit(x, y, epochs=1000, batch_size=1)
 
 res = model.predict(x_predict)
 
-# res = model.predict([[[5],[6],[7]]])
-
 print(res)
 
 # 결과값이 80에 근접하게 만들기

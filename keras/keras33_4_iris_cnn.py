@@ -43,7 +43,7 @@ print(x_train.shape, y_train.shape)
 # 컴파일 및 훈련
 
 model.compile(loss="categorical_crossentropy", optimizer='adam', metrics=['accuracy'])
-model.fit(x_train, y_train, batch_size=32, epochs=100, verbose=0, validation_split=1/7, shuffle=True)
+model.fit(x_train, y_train, batch_size=32, epochs=100, verbose=1, validation_split=1/7, shuffle=True)
 # Error here. ValueError: Shapes (None, 3) and (None, 4, 3) are incompatible
 
 # 평가(evaluate)

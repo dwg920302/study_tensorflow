@@ -37,6 +37,8 @@ res = model.predict(x_input)
 
 # res = model.predict([[[5],[6],[7]]])
 
+# LSTM -> 연산이 많아서 매우 느림
+
 print(res)
 
 '''
