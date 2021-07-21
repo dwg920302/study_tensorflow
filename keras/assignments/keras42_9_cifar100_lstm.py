@@ -37,7 +37,7 @@ model.add(Dense(100, activation='softmax'))
 # 컴파일 및 훈련
 
 model.compile(loss="mse", optimizer='adam', metrics=['accuracy'])
-model.fit(x_train, y_train, batch_size=1024, epochs=10, verbose=1, validation_split=1/7, shuffle=True)
+model.fit(x_train, y_train, batch_size=1024, epochs=50, verbose=1, validation_split=1/10, shuffle=True)
 # batch_size (default 32)
 
 # 평가(evaluate)

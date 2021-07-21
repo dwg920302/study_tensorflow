@@ -2,7 +2,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from tensorflow.keras.datasets import mnist
 from tensorflow.keras.models import Sequential
-from tensorflow.keras.layers import Dense, Dropout, Conv2D, Flatten, MaxPooling2D, GlobalAvgPool2D, DepthwiseConv2D
+from tensorflow.keras.layers import Dense, Dropout, Flatten, Reshape, Conv2D, MaxPooling2D
 from tensorflow.keras.callbacks import EarlyStopping
 from sklearn.preprocessing import OneHotEncoder
 from sklearn.preprocessing import StandardScaler, MinMaxScaler, MaxAbsScaler, RobustScaler
@@ -32,23 +32,28 @@ x_test = x_test.reshape(10000, 28, 28)
 
 # Model
 model = Sequential()
-model.add(Dense(128, input_shape=(28, 28)))
+model.add(Dense(10, activation='relu', input_shape=(28, 28)))
+model.add(Flatten())    # (N, 280)
+model.add(Dense(784))   # (N, 784)
+model.add(Reshape((28, 28, 1)))  # (N, 28, 28, 1)
+model.add(Conv2D(64, (2 ,2)))
+model.add(Dropout(0.1))
+model.add(Conv2D(64, (2 ,2)))
+model.add(Conv2D(64, (2 ,2)))
+model.add(MaxPooling2D())
 model.add(Flatten())
-model.add(Dense(256))
-model.add(Dropout(1/8))
-model.add(Dense(512, activation='relu'))
-model.add(Dense(128))
-model.add(Dropout(1/8))
+model.add(Dense(128, activation='relu'))
+model.add(Dropout(0.1))
 model.add(Dense(32, activation='relu'))
 model.add(Dense(10, activation='softmax'))
 
 # compile and fit
 
-es = EarlyStopping(monitor='val_accuracy', patience=25, mode='max', verbose=1)
+es = EarlyStopping(monitor='val_accuracy', patience=10, mode='max', verbose=1)
 
 model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])
 
-hist = model.fit(x_train, y_train, batch_size=64, epochs=100, verbose=2, validation_split=1/12, callbacks=[es])
+hist = model.fit(x_train, y_train, batch_size=64, epochs=20, verbose=2, validation_split=1/12, callbacks=[es])
 
 # evaluate
 
@@ -57,10 +62,8 @@ loss = model.evaluate(x_test, y_test)
 print('loss = ', loss[0], ', accuracy = ', loss[1])
 
 '''
-[Best Fit]
-Epoch 95/100
-860/860 - 3s - loss: 0.0124 - accuracy: 0.9973 - val_loss: 0.1367 - val_accuracy: 0.9804
-Epoch 00095: early stopping
-313/313 [==============================] - 1s 2ms/step - loss: 0.1756 - accuracy: 0.9786
-loss =  0.1755693405866623 , accuracy =  0.978600025177002
+Epoch 20/20
+860/860 - 6s - loss: 0.0148 - accuracy: 0.9955 - val_loss: 0.0994 - val_accuracy: 0.9782
+313/313 [==============================] - 1s 3ms/step - loss: 0.1058 - accuracy: 0.9803
+loss =  0.10580766946077347 , accuracy =  0.9803000092506409
 '''
