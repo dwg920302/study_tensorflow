@@ -1,7 +1,12 @@
+# keras-004 [Scatter]
+
+# 사실 3번과 크게 다를 게 없음
+
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense
 import numpy as np
 import matplotlib.pyplot as plt
+
 
 # 1 데이터
 x = np.array([1,2,3,4,5,6,7,8,9,10])

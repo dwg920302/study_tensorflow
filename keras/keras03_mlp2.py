@@ -1,24 +1,19 @@
+# keras-003 #2 [Pyplot #2]
+
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense
 import numpy as np
 import matplotlib.pyplot as plt
 
+
 # 데이터 구성
 x = np.array([[1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
     [1, 1.1, 1.2, 1.3, 1.4, 1.5, 1.6, 1.5, 1.4, 1.3],
-    [10, 9, 8, 7, 6, 5, 4, 3, 2, 1]])
-    # 3행 10열
+    [10, 9, 8, 7, 6, 5, 4, 3, 2, 1]])   # (3, 10)
 
-print(x.shape)
+x = np.transpose(x) # 행렬 반전 (3, 10) -> (10, 3)
 
-x = np.transpose(x)
-# 행렬 반전 : 3행 10열 -> 10행 3열
-
-print(x.shape)
-
-y = np.array([11,12,13,14,15,16,17,18,19,20])
-
-print(y.shape)
+y = np.array([11,12,13,14,15,16,17,18,19,20])   # (10, )
 
 # 모델 구성
 model = Sequential()

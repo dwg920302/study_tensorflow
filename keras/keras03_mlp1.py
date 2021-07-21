@@ -1,25 +1,27 @@
+# keras-003 [Transpose, Pyplot]
+
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense
 import numpy as np
 import matplotlib.pyplot as plt
 
-# 데이터 구성
+
+# 1 데이터
 x = np.array([[1,2,3,4,5,6,7,8,9,10],
     [1, 1.1, 1.2, 1.3, 1.4, 1.5, 1.6, 1.5, 1.4, 1.3]])
     # 2행 10열
 
-print(x.shape)
+# print(x.shape)  # (2, 10)
 
-x = np.transpose(x)
-# 행렬 반전 : 2행 10열 -> 10행 2열
+x = np.transpose(x) # 행렬 반전 : 2행 10열 -> 10행 2열
 
-print(x.shape)
+# print(x.shape)  # (10, 2)
 
 y = np.array([11,12,13,14,15,16,17,18,19,20])
 
-print(y.shape)
+# print(y.shape)  # (10, )
 
-# 모델 구성
+# 2 모델
 model = Sequential()
 model.add(Dense(2, input_dim=2))
 model.add(Dense(4))
@@ -43,9 +45,9 @@ print('예측 값 : ', result)
 
 y_pred = model.predict(x)
 
-plt.scatter(x, y)
-plt.plot(x, y_pred, color='red')
-plt.show()
+plt.scatter(x, y)   # x, y를 각 축으로 해서 값들을 점으로 분산시킴
+plt.plot(x, y_pred, color='red')    # x, y_pred를 기준으로 선을 그림. 색상은 'red'.
+plt.show()  # 그린 plt를 보여주는 메소드
 
 '''
 [Best Fit]

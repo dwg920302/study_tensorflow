@@ -1,30 +1,30 @@
-# 데이터 array를 np로 바꿔주기
+# keras-001 #2 [list to np.array]
 
-# 완성한 뒤, 출력 결과(loss 값, 예측 값) 를 캡쳐할 것
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense
-
-from tensorflow.keras.layers import Activation
-
 import numpy as np
+
+
+# 1 Raw Data
 
 x = [1,2,3,4,5]
 y = [1,2,4,3,5]
 x_pred=[6]
 
-# 1-데이터 준비
+# 1-1 Data Preprocessing
 x = np.array(x)
 y = np.array(y)
+# list 형태의 x와 y를 np.array 형태로 바꾸는 과정
 
-# 2-모델 구성
+# 2 Create/Define Model
 model = Sequential()
 model.add(Dense(1, input_dim=1))
 
-# 3-모델 컴파일 및 훈련
+# 3 Model Compile & Fit
 model.compile(loss='mse', optimizer='adam')
 model.fit(x, y, epochs=5000, batch_size=5)
 
-# 4-평가 및 예측
+# 4 Evaluate or Predict
 loss = model.evaluate(x, y)
 print('loss : ', loss)
 

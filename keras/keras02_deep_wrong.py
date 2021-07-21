@@ -1,23 +1,21 @@
+# keras-002 #2 [잘못된 예시]
+
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense
 import numpy as np
 
-# 1 데이터
 x = np.array([1,2,3,4,5])
 y = np.array([1,2,4,3,5,6])
 
-# 2 모델
 model = Sequential()
 model.add(Dense(5, input_dim=1))
 model.add(Dense(2))
 model.add(Dense(1))
 
-# 3 컴파일, 훈련
 model.compile(loss='mse', optimizer='adam')
 
 model.fit(x, y, epochs=500, batch_size=5)
 
-# 4 평가, 예측
 loss = model.evaluate(x, y)
 print('loss : ', loss)
 
@@ -29,4 +27,5 @@ ValueError: Data cardinality is ambiguous:
   x sizes: 5
   y sizes: 6
 Make sure all arrays contain the same number of samples.
+-> 비교하는 x와 y의 길이가 같아야 하는데 달라서 발생하는 오류임.
 '''
