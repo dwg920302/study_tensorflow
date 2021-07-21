@@ -79,7 +79,7 @@ model.summary()
 es = EarlyStopping(monitor='loss', mode='min', patience=20, verbose=1)
 
 model.compile(loss='mse', optimizer='adam')
-model.fit(x_train, y_train, epochs=10, batch_size=1, validation_split=1/17, callbacks=[es])
+model.fit(x_train, y_train, epochs=100, batch_size=1, validation_split=1/17, callbacks=[es])
 
 # Predict
 loss = model.evaluate(x_test, y_test)
