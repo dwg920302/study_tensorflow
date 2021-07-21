@@ -85,7 +85,7 @@ model.fit(x_train, y_train, epochs=10, batch_size=1, validation_split=1/17, call
 loss = model.evaluate(x_test, y_test)
 print('loss = ', loss)
 y_pred = model.predict(x_test)
-print('희망값 = ', y_exp, '\n예측값 = ', y_pred)
+print('예측값 = ', y_pred)
 print(y_test.shape, y_pred.shape)
 r2 = r2_score(y_test, y_pred)
 print('R^2 Score = ', r2)
