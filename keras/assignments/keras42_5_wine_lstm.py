@@ -20,7 +20,7 @@ x = dataset.drop(columns='quality')
 print(x, y)
 print(x.shape, y.shape)
 
-x_train, x_test, y_train, y_test = train_test_split(x, y, train_size=7/8, shuffle=True, random_state=92)
+x_train, x_test, y_train, y_test = train_test_split(x, y, train_size=3/4, shuffle=True, random_state=92)
 
 # 데이터 전처리(preprocess)
 
@@ -35,8 +35,9 @@ y_test = encoder.transform(y_test.reshape(-1, 1))
 model = Sequential()
 model.add(LSTM(16, activation='relu', input_shape=(11, 1)))
 model.add(Dense(64, activation='relu'))
-model.add(Dropout(0.01))
-model.add(Dense(16, activation='relu'))
+model.add(Dropout(0.02))
+model.add(Dense(128, activation='relu'))
+model.add(Dense(32, activation='relu'))
 model.add(Dense(7, activation='softmax'))
 
 # model.summary()
@@ -44,7 +45,7 @@ model.add(Dense(7, activation='softmax'))
 # 컴파일 및 훈련
 
 model.compile(loss="mse", optimizer='adam', metrics=['accuracy'])
-model.fit(x_train, y_train, batch_size=32, epochs=100, verbose=1, validation_split=1/7, shuffle=True)
+model.fit(x_train, y_train, batch_size=32, epochs=100, verbose=1, validation_split=1/12, shuffle=True)
 # batch_size (default 32)
 
 # 평가(evaluate)
@@ -56,7 +57,9 @@ print('accuracy = ', loss[1])
 # 
 
 '''
-20/20 [==============================] - 0s 6ms/step - loss: 0.0814 - accuracy: 0.5661
-loss =  0.0814489796757698
-accuracy =  0.5660685300827026
+Epoch 100/100                                                                                                            cy: 0.5416
+115/115 [==============================] - 3s 29ms/step - loss: 0.0766 - accuracy: 0.5960 - val_loss: 0.0842 - val_accuracy: 0.5302                                                                                                               cy: 0.5302
+20/20 [==============================] - 0s 6ms/step - loss: 0.0818 - accuracy: 0.5726
+loss =  0.08177541941404343
+accuracy =  0.5725938081741333
 '''

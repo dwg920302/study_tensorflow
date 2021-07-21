@@ -24,9 +24,9 @@ x_test = scaler.transform(x_test.reshape(x_test.shape[0], x_test.shape[1] * x_te
 # 모델
 
 model = Sequential()
-model.add(LSTM(8, activation='relu', input_shape=(28, 28)))
+model.add(LSTM(16, activation='relu', input_shape=(28, 28)))
 model.add(Dense(64, activation='relu'))
-model.add(Dropout(0.01))
+model.add(Dropout(0.02))
 model.add(Dense(32, activation='relu'))
 model.add(Dense(10, activation='softmax'))
 
@@ -35,7 +35,7 @@ model.add(Dense(10, activation='softmax'))
 # 컴파일 및 훈련
 
 model.compile(loss="mse", optimizer='adam', metrics=['accuracy'])
-model.fit(x_train, y_train, batch_size=256, epochs=10, verbose=1, validation_split=1/7, shuffle=True)
+model.fit(x_train, y_train, batch_size=256, epochs=50, verbose=1, validation_split=1/12, shuffle=True)
 # batch_size (default 32)
 
 # 평가(evaluate)
@@ -45,9 +45,9 @@ print('loss = ', loss[0])
 print('accuracy = ', loss[1])
 
 '''
-Epoch 10/10
-201/201 [==============================] - 13s 63ms/step - loss: 0.0197 - accuracy: 0.8676 - val_loss: 0.0177 - val_accuracy: 0.8812
-313/313 [==============================] - 4s 12ms/step - loss: 0.0193 - accuracy: 0.8684
-loss =  0.019274430349469185
-accuracy =  0.868399977684021
+Epoch 50/50
+215/215 [==============================] - 14s 63ms/step - loss: 0.0038 - accuracy: 0.9762 - val_loss: 0.0034 - val_accuracy: 0.9774
+313/313 [==============================] - 4s 12ms/step - loss: 0.0041 - accuracy: 0.9736
+loss =  0.004100794903934002
+accuracy =  0.9735999703407288
 '''
