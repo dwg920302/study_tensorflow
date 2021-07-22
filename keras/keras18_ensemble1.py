@@ -4,9 +4,6 @@ from tensorflow.keras.layers import Input, Dense, Concatenate, concatenate
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import r2_score
 
-# HW 2 train_size의 default 값 찾기
-
-# HW 3 평균값과 중위값의 차이
 
 # 데이터
 x1 = np.array([range(100), range(301, 401), range(1, 101)])

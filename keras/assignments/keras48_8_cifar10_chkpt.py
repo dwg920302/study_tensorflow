@@ -39,7 +39,7 @@ model.add(Dense(10, activation='softmax'))
 cp = ModelCheckpoint(monitor='val_loss', save_best_only=True, mode='auto',
                     filepath='./_save/model_checkpoint/keras48_8_cifar10.hdf5')
 model.compile(loss="mse", optimizer='adam', metrics=['accuracy'])
-model.fit(x_train, y_train, batch_size=1024, epochs=10, verbose=1, validation_split=1/10, shuffle=True)
+model.fit(x_train, y_train, batch_size=128, epochs=100, verbose=1, validation_split=1/10, shuffle=True)
 
 model.save('./_save/keras48_8_cifar10.h5')
 # batch_size (default 32)
