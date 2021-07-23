@@ -96,51 +96,51 @@ scalers = [MaxAbsScaler() for i in range(5)]
 x_train = np.array([x_sam_train, x_sk_train])   # (2, 2210, 5)
 x_test = np.array([x_sam_test, x_sk_test])      # (2, 390, 5)
 
-i = 0
-for idx in x_sam.columns:
-    ic(i, idx)
-    # if idx != '일자':
-    scaling_data = pd.concat([x_sam_train[idx], x_sk_train[idx]])
-    # sam과 sk의 데이터를 합친 것을 fit함. 따로따로 하면 삼성의 데이터와 SK의 데이터가 서로 다른 기준으로 스케일링이 되는 단점이 있음.
-    scalers[i] = scalers[i].fit(scaling_data.to_numpy().reshape(scaling_data.shape[0], 1))
-    x_sam_train[idx] = scalers[i].transform(x_sam_train[idx].to_numpy().reshape(x_sam_train[idx].shape[0], 1)).reshape(x_sam_train[idx].shape[0], )
-    x_sk_train[idx] = scalers[i].transform(x_sk_train[idx].to_numpy().reshape(x_sk_train[idx].shape[0], 1)).reshape(x_sk_train[idx].shape[0], )
-    x_sam_test[idx] = scalers[i].transform(x_sam_test[idx].to_numpy().reshape(x_sam_test[idx].shape[0], 1)).reshape(x_sam_test[idx].shape[0], )
-    x_sk_test[idx] = scalers[i].transform(x_sk_test[idx].to_numpy().reshape(x_sk_test[idx].shape[0], 1)).reshape(x_sk_test[idx].shape[0], )
-    i += 1
+# i = 0
+# for idx in x_sam.columns:
+#     ic(i, idx)
+#     # if idx != '일자':
+#     scaling_data = pd.concat([x_sam_train[idx], x_sk_train[idx]])
+#     # sam과 sk의 데이터를 합친 것을 fit함. 따로따로 하면 삼성의 데이터와 SK의 데이터가 서로 다른 기준으로 스케일링이 되는 단점이 있음.
+#     scalers[i] = scalers[i].fit(scaling_data.to_numpy().reshape(scaling_data.shape[0], 1))
+#     x_sam_train[idx] = scalers[i].transform(x_sam_train[idx].to_numpy().reshape(x_sam_train[idx].shape[0], 1)).reshape(x_sam_train[idx].shape[0], )
+#     x_sk_train[idx] = scalers[i].transform(x_sk_train[idx].to_numpy().reshape(x_sk_train[idx].shape[0], 1)).reshape(x_sk_train[idx].shape[0], )
+#     x_sam_test[idx] = scalers[i].transform(x_sam_test[idx].to_numpy().reshape(x_sam_test[idx].shape[0], 1)).reshape(x_sam_test[idx].shape[0], )
+#     x_sk_test[idx] = scalers[i].transform(x_sk_test[idx].to_numpy().reshape(x_sk_test[idx].shape[0], 1)).reshape(x_sk_test[idx].shape[0], )
+#     i += 1
 
-# ic(x_sam_train.head(), x_sam_test.head(), x_sk_train.head(), x_sk_test.head())
+# # ic(x_sam_train.head(), x_sam_test.head(), x_sk_train.head(), x_sk_test.head())
 
-# Model (Ensemble Model, 2 to 2)
+# # Model (Ensemble Model, 2 to 2)
 
-input_1 = Input(shape=(5, ))
-dense_1_1 = Dense(64, activation='relu', name='D1-1')(input_1)
-dense_1_d = Dropout(0.005)(dense_1_1)
-dense_1_2 = Dense(128, activation='relu', name='D1-2')(dense_1_d)
-conc_point_1 = Dense(256, name='D1-3')(dense_1_2)
+# # input_1 = Input(shape=(5, ))
+# # dense_1_1 = Dense(64, activation='relu', name='D1-1')(input_1)
+# # dense_1_d = Dropout(0.005)(dense_1_1)
+# # dense_1_2 = Dense(128, activation='relu', name='D1-2')(dense_1_d)
+# # conc_point_1 = Dense(256, name='D1-3')(dense_1_2)
 
-input_2 = Input(shape=(5, ))
-dense_2_1 = Dense(64, activation='relu', name='D2-1')(input_2)
-dense_2_d = Dropout(0.005)(dense_2_1)
-dense_2_2 = Dense(128, activation='relu', name='D2-2')(dense_2_d)
-conc_point_2 = Dense(256, name='D2-3')(dense_2_2)
+# # input_2 = Input(shape=(5, ))
+# # dense_2_1 = Dense(64, activation='relu', name='D2-1')(input_2)
+# # dense_2_d = Dropout(0.005)(dense_2_1)
+# # dense_2_2 = Dense(128, activation='relu', name='D2-2')(dense_2_d)
+# # conc_point_2 = Dense(256, name='D2-3')(dense_2_2)
 
-dense_a_1 = concatenate([conc_point_1, conc_point_2], name='DA-1')
-dense_a_2 = Dense(512, activation='relu', name='DA-2')(dense_a_1)
-dense_a_d = Dropout(0.01)(dense_a_2)
-dense_a_3 = Dense(256, activation='relu', name='DA-3')(dense_a_d)
+# # dense_a_1 = concatenate([conc_point_1, conc_point_2], name='DA-1')
+# # dense_a_2 = Dense(512, activation='relu', name='DA-2')(dense_a_1)
+# # dense_a_d = Dropout(0.01)(dense_a_2)
+# # dense_a_3 = Dense(256, activation='relu', name='DA-3')(dense_a_d)
 
-dense_a1_1 = Dense(64, activation='relu', name='DA1-1')(dense_a_3)
-dense_a1_2 = Dense(16, activation='relu', name='DA1-2')(dense_a1_1)
-dense_a1_d = Dropout(0.005)(dense_a1_2)
-dense_a1_3 = Dense(4, activation='relu', name='DA1-3_last_before')(dense_a1_d)
-output_1 = Dense(1, name='output-1')(dense_a1_3)
+# # dense_a1_1 = Dense(64, activation='relu', name='DA1-1')(dense_a_3)
+# # dense_a1_2 = Dense(16, activation='relu', name='DA1-2')(dense_a1_1)
+# # dense_a1_d = Dropout(0.005)(dense_a1_2)
+# # dense_a1_3 = Dense(4, activation='relu', name='DA1-3_last_before')(dense_a1_d)
+# # output_1 = Dense(1, name='output-1')(dense_a1_3)
 
-dense_a2_1 = Dense(64, activation='relu', name='DA2-1')(dense_a_3)
-dense_a2_2 = Dense(16, activation='relu', name='DA2-2')(dense_a2_1)
-dense_a2_d = Dropout(0.005)(dense_a2_2)
-dense_a2_3 = Dense(4, activation='relu', name='DA2-3_last_before')(dense_a2_d)
-output_2 = Dense(1, name='output-2')(dense_a2_3)
+# # dense_a2_1 = Dense(64, activation='relu', name='DA2-1')(dense_a_3)
+# # dense_a2_2 = Dense(16, activation='relu', name='DA2-2')(dense_a2_1)
+# # dense_a2_d = Dropout(0.005)(dense_a2_2)
+# # dense_a2_3 = Dense(4, activation='relu', name='DA2-3_last_before')(dense_a2_d)
+# # output_2 = Dense(1, name='output-2')(dense_a2_3)
 
 
 # input_1 = Input(shape=(5, ))
@@ -167,83 +167,94 @@ output_2 = Dense(1, name='output-2')(dense_a2_3)
 # dense_a2_3 = Dense(4, activation='relu', name='DA2-3_last_before')(dense_a2_2)
 # output_2 = Dense(1, name='output-2')(dense_a2_3)
 
-model = Model(inputs=[input_1, input_2], outputs=[output_1, output_2])
+# model = Model(inputs=[input_1, input_2], outputs=[output_1, output_2])
 
-# Compile and Fit
+# # Compile and Fit
 
-model.compile(loss='mse', optimizer='adam')
+# model.compile(loss='mse', optimizer='adam')
 
-es = EarlyStopping(monitor='val_loss', patience=50, mode='auto', verbose=1,
-                    restore_best_weights=True)
+# es = EarlyStopping(monitor='val_loss', patience=50, mode='auto', verbose=1,
+#                     restore_best_weights=True)
 
-date = datetime.datetime.now()
-date_time = date.strftime("%m%d_%H%M")
-filepath_model = './samsung/_save/'
-filepath_mcp = './samsung/_save/checkpoints/'
-filename = '.{epoch:04d}_{val_loss:.4f}.hdf5'
-modelpath = "".join([filepath_mcp, "samsung_",  date_time, "_", filename])
-# 파일명 + 시간 + loss
+# date = datetime.datetime.now()
+# date_time = date.strftime("%m%d_%H%M")
+# filepath_model = './samsung/_save/'
+# filepath_mcp = './samsung/_save/checkpoints/'
+# filename = '{epoch:04d}_{val_loss:.4f}.hdf5'
+# modelpath = "".join([filepath_mcp, "samsung_",  date_time, "_", filename])
+# # 파일명 + 시간 + loss
 
-mcp = ModelCheckpoint(monitor='val_loss', mode='auto', verbose=1, save_best_only=True, filepath=modelpath)
+# mcp = ModelCheckpoint(monitor='val_loss', mode='auto', verbose=1, save_best_only=True, filepath=modelpath)
 
-model.fit([x_sam_train, x_sk_train], [y_sam_train, y_sk_train], epochs=250, batch_size=16, validation_split=1/10, shuffle=True, callbacks=[es, mcp])
+# model.fit([x_sam_train, x_sk_train], [y_sam_train, y_sk_train], epochs=500, batch_size=16, validation_split=1/10, shuffle=True, callbacks=[es, mcp])
 
-model.save(filepath_model + 'samsung_saved_model.h5')
+# model.save(filepath_model + 'samsung_saved_model.h5')
 
-# Evaluate and Predict
-loss = model.evaluate([x_sam_test, x_sk_test], [y_sam_test, y_sk_test])
-ic(loss)
+# # Evaluate and Predict
+# loss = model.evaluate([x_sam_test, x_sk_test], [y_sam_test, y_sk_test])
+# ic(loss)
 
-# 날짜만 21년 7월 23일(금요일)이고, 그 외 데이터들은 전부 21년 7월 21일 데이터로 임의로 짜깁기한 샘플을 만들어서 테스트해봄.
+# # 날짜만 21년 7월 23일(금요일)이고, 그 외 데이터들은 전부 21년 7월 21일 데이터로 임의로 짜깁기한 샘플을 만들어서 테스트해봄.
 
-# sample_1 = np.array([210723, 79000, 79100, 78500, 12355296.0])
-# sample_2 = np.array([210723, 119500, 120000, 116500, 2864601.0])
+# # sample_1 = np.array([210723, 79000, 79100, 78500, 12355296.0])
+# # sample_2 = np.array([210723, 119500, 120000, 116500, 2864601.0])
 
-# sample_1 = sample_1.reshape(5, 1)
-# sample_2 = sample_2.reshape(5, 1)
+# # sample_1 = sample_1.reshape(5, 1)
+# # sample_2 = sample_2.reshape(5, 1)
 
-# i = 0
-# for idx in x_sam.columns:
-#     # if idx != '일자':
-#     sample_1[i] = scalers[i].transform(sample_1[i].reshape(-1, 1)).reshape(1)
-#     sample_2[i] = scalers[i].transform(sample_2[i].reshape(-1, 1)).reshape(1)
-#     i += 1
+# # i = 0
+# # for idx in x_sam.columns:
+# #     # if idx != '일자':
+# #     sample_1[i] = scalers[i].transform(sample_1[i].reshape(-1, 1)).reshape(1)
+# #     sample_2[i] = scalers[i].transform(sample_2[i].reshape(-1, 1)).reshape(1)
+# #     i += 1
 
-# sample_1 = sample_1.reshape(1, 5)
-# sample_2 = sample_2.reshape(1, 5)
+# # sample_1 = sample_1.reshape(1, 5)
+# # sample_2 = sample_2.reshape(1, 5)
 
-# [predict_1, predict_2] = model.predict([sample_1, sample_2])
-# ic(predict_1)
+# # [predict_1, predict_2] = model.predict([sample_1, sample_2])
+# # ic(predict_1)
 
 # Model을 가져오고, Model에서 추출한 Sample을 가져옴.
 
-# model = load_model('./samsung/_save/checkpoints/samsung_0723_0215_.0043_791196.2500.hdf5')
+model = load_model('./samsung/_save/checkpoints/samsung_0723_0953_0327_521976.4062.hdf5')
 
-sample_1 = np.array([1.00000949, 0.5533704 , 0.56197315, 0.58667237, 0.2527865 ]).reshape(1, 5)
-sample_2 = np.array([1.00000949, 0.8861555 , 0.89020187, 0.9189478 , 0.04637998]).reshape(1, 5)
+sample_1 = np.array([1.00000949, 0.5529626 , 0.5538426 , 0.57911247, 0.25004786]).reshape(1, 5)
+sample_2 = np.array([1.00000949, 0.87048876, 0.8706228 , 0.89793754, 0.05184639]).reshape(1, 5)
 
 [predict_1, predict_2] = model.predict([sample_1, sample_2])
 ic(predict_1)
 
+
 '''
-# 참고 : 210721의 삼성 종가는 78500이다
-# 개인 예상 (그냥 무지성으로 던짐) : 80000
+# 참고 : 210721의 삼성 시가는 _이다
 
 # 3번 중 1번 꼴로 loss가 억대에서 더이상 내려가지 않는 경우가 많이 나옴.
 
-[with MaxAbsScaler] - [1.00000949, 0.5533704 , 0.56197315, 0.58667237, 0.2527865 ], [1.00000949, 0.8861555 , 0.89020187, 0.9189478 , 0.04637998]
-(best_weight?)
+[with MaxAbsScaler]
+
+[1.00000949, 0.5533704 , 0.56197315, 0.58667237, 0.2527865 ], [1.00000949, 0.8861555 , 0.89020187, 0.9189478 , 0.04637998]
 
 (No Dropout)
 Epoch 00250: val_loss did not improve from 579847.75000
 25/25 [==============================] - 0s 3ms/step - loss: 1825753.8750 - output-1_loss: 460829.6562 - output-2_loss: 1364924.0000
 ic| loss: [1825753.875, 460829.65625, 1364924.0]
 ic| predict_1: array([[84643.75]], dtype=float32)
+(3rd chkpt)
+ic| predict_1: array([[82621.46]], dtype=float32)
 
 (Some Dropout)
 Epoch 00250: val_loss did not improve from 667347.31250
 25/25 [==============================] - 0s 3ms/step - loss: 3277119.5000 - output-1_loss: 367755.8125 - output-2_loss: 2909363.2500
 ic| loss: [3277119.5, 367755.8125, 2909363.25]
 ic| predict_1: array([[82267.5]], dtype=float32) <- This
+
+Epoch 00375: early stopping
+25/25 [==============================] - 0s 3ms/step - loss: 544324.4375 - output-1_loss: 181430.7031 - output-2_loss: 362893.7188
+ic| loss: [544324.4375, 181430.703125, 362893.71875]
+ic| predict_1: array([[83050.58]], dtype=float32)
+
+(best_weight)
+[1.00000949, 0.5529626 , 0.5538426 , 0.57911247, 0.25004786], [1.00000949, 0.87048876, 0.8706228 , 0.89793754, 0.05184639]
 
 '''

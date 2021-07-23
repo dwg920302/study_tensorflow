@@ -114,7 +114,7 @@ model = Model(inputs=input_1, outputs=[output_1, output_2])
 
 model.compile(loss='mse', optimizer='adam', metrics=['accuracy'])
 
-es = EarlyStopping(monitor='val_loss', patience=50, mode='auto', verbose=1,
+es = EarlyStopping(monitor='val_loss', patience=250, mode='auto', verbose=1,
                     restore_best_weights=True)
 
 date = datetime.datetime.now()
@@ -128,7 +128,7 @@ modelpath = "".join([filepath_mcp, "sample_",  date_time, "_", filename])
 mcp = ModelCheckpoint(monitor='val_loss', mode='auto', verbose=1, save_best_only=True,
                         filepath=modelpath)
 
-model.fit(x_train, [y_sam_train, y_sk_train], epochs=250, batch_size=4, validation_split=1/5, shuffle=True, verbose=1, callbacks=[es, mcp])
+model.fit(x_train, [y_sam_train, y_sk_train], epochs=2500, batch_size=4, validation_split=1/5, shuffle=True, verbose=1, callbacks=[es, mcp])
 # model.fit(x_train, y_sam_train, epochs=100, batch_size=4, validation_split=1/5, shuffle=True, verbose=1, callbacks=[es, mcp])
 # model.fit(x_train,  y_sk_train, epochs=100, batch_size=4, validation_split=1/10, shuffle=True, verbose=1, callbacks=[es, mcp])
 
@@ -150,8 +150,6 @@ ic(predict)
 # ic(y_sam_train.sort_values(by='시가', ascending=True).head())
 
 '''
-# output이 2개인데, 한쪽에만 정확도가 높게 몰아져 있음. (아직 해결 못함)
-
 [추출 샘플 모음]
 epochs = 100
 
@@ -163,6 +161,13 @@ ic| 'loss = ', loss[0]: 0.0035684346221387386
 ic| 'accuracy = ', loss[1]: 0.0015004368033260107
 ic| predict: [array([[0.5533704 , 0.56197315, 0.58667237, 0.2527865 ]], dtype=float32),
               array([[0.8861555 , 0.89020187, 0.9189478 , 0.04637998]], dtype=float32)]
+
+Epoch 00640: early stopping
+25/25 [==============================] - 0s 4ms/step - loss: 0.0035 - output-1_loss: 0.0015 - output-2_loss: 0.0020 - output-1_accuracy: 0.8732 - output-2_accuracy: 0.9680
+ic| 'loss = ', loss[0]: 0.0035044869873672724
+ic| 'accuracy = ', loss[1]: 0.001480383099988103
+ic| predict: [array([[0.5529626 , 0.5538426 , 0.57911247, 0.25004786]], dtype=float32),
+              array([[0.87048876, 0.8706228 , 0.89793754, 0.05184639]], dtype=float32)]
 
 
 [MinMaxScaler]
