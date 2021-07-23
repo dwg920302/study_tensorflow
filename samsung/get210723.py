@@ -13,9 +13,9 @@ import datetime
 
 # Data
 
-data_sam = pd.read_csv('./samsung/stock_samsung.csv', encoding='euc-kr')
+data_sam = pd.read_csv('./samsung/data/stock_samsung.csv', encoding='euc-kr')
 
-data_sk = pd.read_csv('./samsung/stock_sk.csv', encoding='euc-kr')
+data_sk = pd.read_csv('./samsung/data/stock_sk.csv', encoding='euc-kr')
 
 # Preprocessing
 
