@@ -1,10 +1,10 @@
 import pandas as pd
 import numpy as np
-from icecream import ic     # print 5글자 치기 귀찮아서 2글자짜리 ic를 썼습니다.
+from icecream import ic
 from sklearn.model_selection import train_test_split
 from tensorflow.keras.models import Model, load_model
 from tensorflow.keras.layers import Input, Dense, Dropout, concatenate
-from sklearn.preprocessing import MinMaxScaler, MaxAbsScaler, StandardScaler, RobustScaler, QuantileTransformer, PowerTransformer
+from sklearn.preprocessing import MinMaxScaler, MaxAbsScaler, StandardScaler, RobustScaler, QuantileTransformer, PowerTransformer, Normalizer
 from tensorflow.keras.callbacks import EarlyStopping, ModelCheckpoint
 import datetime
 
@@ -87,7 +87,7 @@ ic(x_sam['일자'].head(), x_sk['일자'].head())
 # Split
 
 x_sam_train, x_sam_test, x_sk_train, x_sk_test, y_sam_train, y_sam_test, y_sk_train, y_sk_test = train_test_split(
-    x_sam, x_sk, y_sam, y_sk, train_size=0.7, shuffle=True, random_state=3)
+    x_sam, x_sk, y_sam, y_sk, train_size=0.7, shuffle=True, random_state=33)
 
 # Scaling (column 별로 다르게 적용함)
 
@@ -113,100 +113,98 @@ for idx in x_sam.columns:
 
 # Model (Ensemble Model, 2 to 2)
 
+# # input_1 = Input(shape=(5, ))
+# # dense_1_1 = Dense(64, activation='relu', name='D1-1')(input_1)
+# # dense_1_d = Dropout(0.005)(dense_1_1)
+# # dense_1_2 = Dense(128, activation='relu', name='D1-2')(dense_1_d)
+# # conc_point_1 = Dense(256, name='D1-3')(dense_1_2)
+
+# # input_2 = Input(shape=(5, ))
+# # dense_2_1 = Dense(64, activation='relu', name='D2-1')(input_2)
+# # dense_2_d = Dropout(0.005)(dense_2_1)
+# # dense_2_2 = Dense(128, activation='relu', name='D2-2')(dense_2_d)
+# # conc_point_2 = Dense(256, name='D2-3')(dense_2_2)
+
+# # dense_a_1 = concatenate([conc_point_1, conc_point_2], name='DA-1')
+# # dense_a_2 = Dense(512, activation='relu', name='DA-2')(dense_a_1)
+# # dense_a_d = Dropout(0.01)(dense_a_2)
+# # dense_a_3 = Dense(256, activation='relu', name='DA-3')(dense_a_d)
+
+# # dense_a1_1 = Dense(64, activation='relu', name='DA1-1')(dense_a_3)
+# # dense_a1_2 = Dense(16, activation='relu', name='DA1-2')(dense_a1_1)
+# # dense_a1_d = Dropout(0.005)(dense_a1_2)
+# # dense_a1_3 = Dense(4, activation='relu', name='DA1-3_last_before')(dense_a1_d)
+# # output_1 = Dense(1, name='output-1')(dense_a1_3)
+
+# # dense_a2_1 = Dense(64, activation='relu', name='DA2-1')(dense_a_3)
+# # dense_a2_2 = Dense(16, activation='relu', name='DA2-2')(dense_a2_1)
+# # dense_a2_d = Dropout(0.005)(dense_a2_2)
+# # dense_a2_3 = Dense(4, activation='relu', name='DA2-3_last_before')(dense_a2_d)
+# # output_2 = Dense(1, name='output-2')(dense_a2_3)
+
+
 # input_1 = Input(shape=(5, ))
 # dense_1_1 = Dense(64, activation='relu', name='D1-1')(input_1)
-# dense_1_d = Dropout(0.005)(dense_1_1)
-# dense_1_2 = Dense(128, activation='relu', name='D1-2')(dense_1_d)
-# conc_point_1 = Dense(256, name='D1-3')(dense_1_2)
+# dense_1_2 = Dense(256, activation='relu', name='D1-2')(dense_1_1)
+# dense_1_3 = Dense(512, activation='relu', name='D1-3')(dense_1_2)
+# conc_point_1 = Dense(1024, name='D1-4')(dense_1_3)
 
 # input_2 = Input(shape=(5, ))
 # dense_2_1 = Dense(64, activation='relu', name='D2-1')(input_2)
-# dense_2_d = Dropout(0.005)(dense_2_1)
-# dense_2_2 = Dense(128, activation='relu', name='D2-2')(dense_2_d)
-# conc_point_2 = Dense(256, name='D2-3')(dense_2_2)
+# dense_2_2 = Dense(256, activation='relu', name='D2-2')(dense_2_1)
+# dense_2_3 = Dense(512, activation='relu', name='D2-3')(dense_2_2)
+# conc_point_2 = Dense(1024, name='D2-4')(dense_2_3)
 
 # dense_a_1 = concatenate([conc_point_1, conc_point_2], name='DA-1')
-# dense_a_2 = Dense(512, activation='relu', name='DA-2')(dense_a_1)
-# dense_a_d = Dropout(0.01)(dense_a_2)
-# dense_a_3 = Dense(256, activation='relu', name='DA-3')(dense_a_d)
+# dense_a_2 = Dense(2048, activation='relu', name='DA-2')(dense_a_1)
+# dense_a_3 = Dense(1024, activation='relu', name='DA-3')(dense_a_2)
+# dense_a_4 = Dense(512, activation='relu', name='DA-4')(dense_a_3)
 
-# dense_a1_1 = Dense(64, activation='relu', name='DA1-1')(dense_a_3)
-# dense_a1_2 = Dense(16, activation='relu', name='DA1-2')(dense_a1_1)
-# dense_a1_d = Dropout(0.005)(dense_a1_2)
-# dense_a1_3 = Dense(4, activation='relu', name='DA1-3_last_before')(dense_a1_d)
-# output_1 = Dense(1, name='output-1')(dense_a1_3)
+# dense_a1_1 = Dense(256, activation='relu', name='DA1-1')(dense_a_4)
+# dense_a1_2 = Dense(64, activation='relu', name='DA1-2')(dense_a1_1)
+# dense_a1_3 = Dense(16, activation='relu', name='DA1-3')(dense_a1_2)
+# dense_a1_4 = Dense(4, activation='relu', name='DA1-4_last_before')(dense_a1_3)
+# output_1 = Dense(1, name='output-1')(dense_a1_4)
 
-# dense_a2_1 = Dense(64, activation='relu', name='DA2-1')(dense_a_3)
-# dense_a2_2 = Dense(16, activation='relu', name='DA2-2')(dense_a2_1)
-# dense_a2_d = Dropout(0.005)(dense_a2_2)
-# dense_a2_3 = Dense(4, activation='relu', name='DA2-3_last_before')(dense_a2_d)
-# output_2 = Dense(1, name='output-2')(dense_a2_3)
+# dense_a2_1 = Dense(256, activation='relu', name='DA2-1')(dense_a_4)
+# dense_a2_2 = Dense(64, activation='relu', name='DA2-2')(dense_a2_1)
+# dense_a2_3 = Dense(16, activation='relu', name='DA2-3')(dense_a2_2)
+# dense_a2_4 = Dense(4, activation='relu', name='DA2-4_last_before')(dense_a2_3)
+# output_2 = Dense(1, name='output-2')(dense_a2_4)
 
+# model = Model(inputs=[input_1, input_2], outputs=[output_1, output_2])
 
-input_1 = Input(shape=(5, ))
-dense_1_1 = Dense(64, activation='relu', name='D1-1')(input_1)
-dense_1_2 = Dense(256, activation='relu', name='D1-2')(dense_1_1)
-dense_1_3 = Dense(512, activation='relu', name='D1-3')(dense_1_2)
-conc_point_1 = Dense(1024, name='D1-4')(dense_1_3)
+# # Compile and Fit
 
-input_2 = Input(shape=(5, ))
-dense_2_1 = Dense(64, activation='relu', name='D2-1')(input_2)
-dense_2_2 = Dense(256, activation='relu', name='D2-2')(dense_2_1)
-dense_2_3 = Dense(512, activation='relu', name='D2-3')(dense_2_2)
-conc_point_2 = Dense(1024, name='D2-4')(dense_2_3)
+# model.compile(loss='mse', optimizer='adam')
 
-dense_a_1 = concatenate([conc_point_1, conc_point_2], name='DA-1')
-dense_a_2 = Dense(2048, activation='relu', name='DA-2')(dense_a_1)
-dense_a_3 = Dense(1024, activation='relu', name='DA-3')(dense_a_2)
-dense_a_4 = Dense(512, activation='relu', name='DA-4')(dense_a_3)
+# es = EarlyStopping(monitor='val_loss', patience=100, mode='auto', verbose=1,
+#                     restore_best_weights=True)
 
-dense_a1_1 = Dense(256, activation='relu', name='DA1-1')(dense_a_4)
-dense_a1_2 = Dense(64, activation='relu', name='DA1-2')(dense_a1_1)
-dense_a1_3 = Dense(16, activation='relu', name='DA1-3')(dense_a1_2)
-dense_a1_4 = Dense(4, activation='relu', name='DA1-4_last_before')(dense_a1_3)
-output_1 = Dense(1, name='output-1')(dense_a1_4)
+# date = datetime.datetime.now()
+# date_time = date.strftime("%m%d_%H%M")
+# filepath_model = './samsung/_save/'
+# filepath_mcp = './samsung/_save/checkpoints/'
+# filename = '{epoch:04d}_{val_loss:.4f}.hdf5'
+# modelpath = "".join([filepath_mcp, "samsung_mp_",  date_time, "_", filename])
+# # 파일명 + 시간 + loss
 
-dense_a2_1 = Dense(256, activation='relu', name='DA2-1')(dense_a_4)
-dense_a2_2 = Dense(64, activation='relu', name='DA2-2')(dense_a2_1)
-dense_a2_3 = Dense(16, activation='relu', name='DA2-3')(dense_a2_2)
-dense_a2_4 = Dense(4, activation='relu', name='DA2-4_last_before')(dense_a2_3)
-output_2 = Dense(1, name='output-2')(dense_a2_4)
+# mcp = ModelCheckpoint(monitor='val_loss', mode='auto', verbose=1, save_best_only=True, filepath=modelpath)
 
-model = Model(inputs=[input_1, input_2], outputs=[output_1, output_2])
+# model.fit([x_sam_train, x_sk_train], [y_sam_train, y_sk_train], epochs=500, batch_size=16, validation_split=1/10, shuffle=True, callbacks=[es, mcp])
 
-# Compile and Fit
+# model.save(filepath_model + 'samsung_mp_saved_model.h5')
 
-model.compile(loss='mse', optimizer='adam')
-
-es = EarlyStopping(monitor='val_loss', patience=50, mode='auto', verbose=1,
-                    restore_best_weights=True)
-
-date = datetime.datetime.now()
-date_time = date.strftime("%m%d_%H%M")
-filepath_model = './samsung/_save/'
-filepath_mcp = './samsung/_save/checkpoints/'
-filename = '{epoch:04d}_{val_loss:.4f}.hdf5'
-modelpath = "".join([filepath_mcp, "samsung_mp_",  date_time, "_", filename])
-# 파일명 + 시간 + loss
-
-mcp = ModelCheckpoint(monitor='val_loss', mode='auto', verbose=1, save_best_only=True, filepath=modelpath)
-
-model.fit([x_sam_train, x_sk_train], [y_sam_train, y_sk_train], epochs=500, batch_size=16, validation_split=1/10, shuffle=True, callbacks=[es, mcp])
-
-model.save(filepath_model + 'samsung_mp_saved_model.h5')
-
-# Evaluate and Predict
-loss = model.evaluate([x_sam_test, x_sk_test], [y_sam_test, y_sk_test])
-ic(loss)
+# # Evaluate and Predict
+# loss = model.evaluate([x_sam_test, x_sk_test], [y_sam_test, y_sk_test])
+# ic(loss)
 
 # Model을 가져오고, Model에서 추출한 Sample을 가져옴.
 
-# model = load_model('./samsung/_save/checkpoints/samsung_0723_0215_.0043_791196.2500.hdf5')
+model = load_model('./samsung/_save/checkpoints/samsung_mp_0726_0814_0253_380528.1250.hdf5')
 
-sample_1 = np.array([1.00002373, 0.5499422 , 0.5733892 , 0.5516343 , 0.23557028]).reshape(1, 5)
-sample_2 = np.array([1.00002373, 0.88879645, 0.9153084 , 0.88215023, 0.04141053]).reshape(1, 5)
-
-
+sample_1 = np.array([1.00002373, 0.54720914, 0.5710415 , 0.54856926, 0.23799258]).reshape(1, 5)
+sample_2 = np.array([1.00002373, 0.80611706, 0.8263978 , 0.79848063, 0.05992865]).reshape(1, 5)
 
 [predict_1, predict_2] = model.predict([sample_1, sample_2])
 ic(predict_1)
@@ -218,8 +216,6 @@ ic(predict_1)
 # 3번 중 1번 꼴로 loss가 억대에서 더이상 내려가지 않는 경우가 많이 나옴.
 
 [with MaxAbsScaler]
-[1.00002373, 0.5133336 , 0.54048014, 0.51698035, 0.25335014], [1.00002373, 0.86223495, 0.89327717, 0.8608519 , 0.03713073]
-
 [1.00002373, 0.5499422 , 0.5733892 , 0.5516343 , 0.23557028], [1.00002373, 0.88879645, 0.9153084 , 0.88215023, 0.04141053]
 
 Epoch 00279: val_loss did not improve from 428173.50000
@@ -233,5 +229,60 @@ Epoch 00065: early stopping
 25/25 [==============================] - 0s 3ms/step - loss: 26006708.0000 - output-1_loss: 17791252.0000 - output-2_loss: 8215458.5000
 ic| loss: [26006708.0, 17791252.0, 8215458.5]
 ic| predict_1: array([[85136.94]], dtype=float32)
+
+[with MinMaxScaler]
+[1.00004969, 0.5133336 , 0.54048014, 0.51698035, 0.25335014], [1.00004969, 0.86223495, 0.89327717, 0.8608519 , 0.03713073]
+
+Epoch 00315: val_loss did not improve from 435558.28125
+Epoch 00315: early stopping
+25/25 [==============================] - 0s 4ms/step - loss: 420162.3750 - output-1_loss: 124878.0469 - output-2_loss: 295284.3750
+ic| loss: [420162.375, 124878.046875, 295284.375]
+ic| predict_1: array([[83421.74]], dtype=float32)
+
+[with RobustScaler]
+[0.99859098, 1.4618939, 1.4609298, 1.4575087, 1.5442377], [0.99859098, 3.1165185 ,  3.0817366 ,  3.1023796 , -0.32585227]
+
+Epoch 00183: val_loss did not improve from 357862.03125
+Epoch 00183: early stopping
+25/25 [==============================] - 0s 3ms/step - loss: 362796.4688 - output-1_loss: 93966.2344 - output-2_loss: 268830.2500
+ic| loss: [362796.46875, 93966.234375, 268830.25]
+ic| predict_1: array([[83673.01]], dtype=float32)
+
+[with QuantileTransformer]
+[1., 0.8195063, 0.8205644, 0.8192105, 0.7953807], [1., 0.9753244 , 0.9696587 , 0.9724853 , 0.16850886]
+
+Epoch 00500: val_loss did not improve from 1254185.62500
+25/25 [==============================] - 0s 4ms/step - loss: 4028099.0000 - output-1_loss: 1798109.6250 - output-2_loss: 2229989.2500
+ic| loss: [4028099.0, 1798109.625, 2229989.25]
+ic| predict_1: array([[70652.67]], dtype=float32)
+(Best Weight) -loss 1262946
+ic| predict_1: array([[72055.87]], dtype=float32)
+(Better Weight) -loss 2028348
+ic| predict_1: array([[73231.56]], dtype=float32)
+
+[with PowerTransformer]
+[1.65174182, -1.2794537e-03,  3.7811073e-03,  3.5670511e-03,  1.3681369e+00], [1.65174182, -6.1709085e-04, -2.6158616e-04,  2.2237189e-04, -7.4606329e-01]
+
+Epoch 00381: val_loss did not improve from 33134110.00000
+Epoch 00381: early stopping
+25/25 [==============================] - 0s 4ms/step - loss: 39831456.0000 - output-1_loss: 8649716.0000 - output-2_loss: 31181746.0000
+ic| loss: [39831456.0, 8649716.0, 31181746.0]
+ic| predict_1: array([[57686.527]], dtype=float32)
+
+[with Normalizer] (Abort)
+[1.70801325, 1.3859714, 1.4166075, 1.3991181, 1.5023004], [1.70801325, 3.2514493 ,  3.2252588 ,  3.2497878 , -0.75290936]
+
+Epoch 00500: val_loss did not improve from 2399282944.00000
+25/25 [==============================] - 0s 4ms/step - loss: 2528175104.0000 - output-1_loss: 1654040832.0000 - output-2_loss: 874134272.0000
+ic| loss: [2528175104.0, 1654040832.0, 874134272.0]
+ic| predict_1: array([[51.18684]], dtype=float32)
+ic| predict_1: array([[50.266037]], dtype=float32)
+
+
+[with MaxAbsScaler]
+[1.00002373, 0.54720914, 0.5710415 , 0.54856926, 0.23799258], [1.00002373, 0.80611706, 0.8263978 , 0.79848063, 0.05992865]
+
+ic| loss: [411620.71875, 124236.5078125, 287384.25]
+ic| predict_1: array([[81314.836]], dtype=float32)
 
 '''
