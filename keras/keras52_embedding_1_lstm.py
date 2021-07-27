@@ -50,8 +50,8 @@ print(len(np.unique(pad_x))) # (28, )
  [ 0 25  3 26 27]] (13, 5)
 '''
 
-pad_x1 = pad_sequences(x, padding='pre', maxlen=4)
-print(pad_x1, pad_x1.shape)
+# pad_x1 = pad_sequences(x, padding='pre', maxlen=4)
+# print(pad_x1, pad_x1.shape)
 
 '''
 [[ 0  0  2  4]
@@ -69,8 +69,8 @@ print(pad_x1, pad_x1.shape)
  [25  3 26 27]] (13, 4)
 '''
 
-pad_x2 = pad_sequences(x, padding='post', maxlen=4)
-print(pad_x2, pad_x2.shape)
+# pad_x2 = pad_sequences(x, padding='post', maxlen=4)
+# print(pad_x2, pad_x2.shape)
 
 '''
 [[ 2  4  0  0]

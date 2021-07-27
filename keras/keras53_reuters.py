@@ -58,15 +58,18 @@ ic(np.unique(y_train))
 y_train = to_categorical(y_train)
 y_test = to_categorical(y_test)
 
-x_train = x_train.reshape(x_train.shape[0], 1, x_train.shape[1])
-x_test = x_test.reshape(x_test.shape[0], 1, x_test.shape[1])
+x_train = x_train.reshape(x_train.shape[0], x_train.shape[1])
+x_test = x_test.reshape(x_test.shape[0], x_test.shape[1])
 
 # Model
 
-ic(x_train.shape, x_test.shape)
+ic(x_train.shape, y_train.shape, x_test.shape,  y_test.shape)
+
+# 이 부분 미완
 
 model = Sequential()
-model.add(Embedding(input_dim=100, output_dim=32))
+model.add(Embedding(input_dim=10000, output_dim=16, input_length=100))
+# 10000은 되는데 10000 미만의 값들은 안 됨. 왜 10000이 되는지 이유는 아직 모르겠음
 model.add(LSTM(32))
 model.add(Dense(46, activation='softmax'))
 
@@ -75,9 +78,15 @@ model.summary()
 # Compile and Fit
 
 model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['accuracy'])
-model.fit(x_train, y_train, epochs=100, batch_size=1)
+model.fit(x_train, y_train, epochs=10, batch_size=32)
 
 # Evaulate
 
 acc = model.evaluate(x_test, y_test)[1]
 print(acc)
+
+'''
+281/281 [==============================] - 4s 8ms/step - loss: 2.8843 - accuracy: 0.3373
+71/71 [==============================] - 1s 4ms/step - loss: 2.4224 - accuracy: 0.3620
+0.36197686195373535
+'''
