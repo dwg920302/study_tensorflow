@@ -1,8 +1,8 @@
 import numpy as np
 from icecream import ic
 
-x_data = np.load('./_save/_npy/k55_x_data_cancer.npy')
-y_data = np.load('./_save/_npy/k55_y_data_cancer.npy')
+x_data = np.load('../_save/_npy/k55_x_data_cancer.npy')
+y_data = np.load('../_save/_npy/k55_y_data_cancer.npy')
 
 ic(x_data.shape, y_data.shape)
 ic(x_data, y_data)
