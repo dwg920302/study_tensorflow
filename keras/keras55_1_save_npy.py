@@ -12,7 +12,7 @@ import pandas as pd
 # dataset = pd.read_csv('../_data/winequality-white.csv', sep=';', index_col=None, header=0)
 # print(dataset)
 
-(x_train, y_train), (x_test, y_test) = mnist.load_data()
+(x_train, y_train), (x_test, y_test) = fashion_mnist.load_data()
 
 print(x_train.shape, y_train.shape)
 print(x_test.shape, y_test.shape)
@@ -26,7 +26,7 @@ print(x_test.shape, y_test.shape)
 # np.save('../_save/_npy/k55_x_data_wine.npy', arr=x_data)
 # np.save('../_save/_npy/k55_y_data_wine.npy', arr=y_data)
 
-np.save('../_save/_npy/k55_x_train_mnist.npy', arr=x_train)
-np.save('../_save/_npy/k55_x_test_mnist.npy', arr=x_test)
-np.save('../_save/_npy/k55_y_train_mnist.npy', arr=y_train)
-np.save('../_save/_npy/k55_y_test_mnist.npy', arr=y_test)
+np.save('../_save/_npy/k55_x_train_fashion_mnist.npy', arr=x_train)
+np.save('../_save/_npy/k55_x_test_fashion_mnist.npy', arr=x_test)
+np.save('../_save/_npy/k55_y_train_fashion_mnist.npy', arr=y_train)
+np.save('../_save/_npy/k55_y_test_fashion_mnist.npy', arr=y_test)

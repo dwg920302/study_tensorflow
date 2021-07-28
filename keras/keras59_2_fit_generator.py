@@ -1,5 +1,10 @@
+from tensorflow.keras.models import Sequential
+from tensorflow.keras.layers import Dense, Conv2D, Flatten
 from tensorflow.keras.preprocessing.image import ImageDataGenerator
 import numpy as np
+import tensorflow as tf
+from icecream import ic
+
 
 train_datagen = ImageDataGenerator(
     rescale=1./255,
@@ -12,12 +17,9 @@ train_datagen = ImageDataGenerator(
     shear_range=0.7,
     fill_mode='nearest'
 )
-# 통상적으로 테스트셋은 증폭하지 않음
 
 test_datagen = ImageDataGenerator(rescale=1./255)
 
-# train 내부 폴더 -> y의 라벨로 자동 지정됨
-# x, y 자동 생성
 xy_train = train_datagen.flow_from_directory(
     '../_data/brain/train',
     target_size=(150, 150),
@@ -25,7 +27,6 @@ xy_train = train_datagen.flow_from_directory(
     class_mode='binary',
     shuffle=True
 )
-# Found 160 images belonging to 2 classes.
 
 xy_test = test_datagen.flow_from_directory(
     '../_data/brain/test',
@@ -34,19 +35,27 @@ xy_test = test_datagen.flow_from_directory(
     class_mode='binary',
     shuffle=True
 )
-# Found 120 images belonging to 2 classes.
-# <tensorflow.python.keras.preprocessing.image.DirectoryIterator object at 0x000001E1F3A15190>
-# print(xy_test)
 
-# print(xy_train)
-# print(xy_train[0])
-# print(xy_train[0][0].shape) # (5, 150, 150, 3) / 5 set (batch__size)
-# print(xy_train[0][1].shape) # (5,)
+model = Sequential()
+model.add(Conv2D(32, (2,2), input_shape=(150, 150, 3)))
+model.add(Flatten())
+model.add(Dense(1, activation='sigmoid'))
 
-# total160, batch=5 : 32 set
-# print(xy_train[31][1].shape) # (5,)
+model.compile(loss='binary_crossentropy', optimizer=tf.optimizers.Adam(learning_rate=0.001), metrics=['accuracy'])
 
-# print(type(xy_train)) # <class 'tensorflow.python.keras.preprocessing.image.DirectoryIterator'>
-# print(type(xy_train[0])) # <class 'tuple'>
-# print(type(xy_train[0][0])) # <class 'numpy.ndarray'>
-# print(type(xy_train[0][1])) # <class 'numpy.ndarray'>
+hist = model.fit_generator(xy_train, validation_data=xy_test, validation_steps=5, epochs=10)
+
+acc = hist.history['accuracy']
+val_acc = hist.history['val_accuracy']
+loss = hist.history['loss']
+val_loss = hist.history['val_loss']
+
+# 위를 시각화 할것
+
+ic('acc : ', acc[-1])
+ic('val_acc : ', acc[-1])
+
+'''
+ic| 'acc : ', acc[-1]: 0.6937500238418579
+ic| 'val_acc : ', acc[-1]: 0.6937500238418579
+'''
