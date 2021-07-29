@@ -1,4 +1,5 @@
-# HW 1
+# keras-006 #1-2 [r2 score]
+
 # 1 R2를 음수가 아닌 0.5 이하로 만들기 (나쁘게)
 # 2 데이터 건드리지 않기
 # 3 레이어는 Input output 포함 6개 이상
@@ -14,7 +15,7 @@ from sklearn.metrics import r2_score
 import numpy as np
 
 
-# 1 데이터
+# 데이터
 x = np.array(range(100))
 y = np.array(range(1, 101))
 
@@ -26,7 +27,7 @@ print('y = ', y_train, ', ' ,y_test)
 print('x = ', x_train.shape, ', ' ,x_test.shape)
 print('y = ', y_train.shape, ', ' ,y_test.shape)
 
-# 2 모델
+# 모델
 model = Sequential()
 model.add(Dense(10, input_dim=1))
 model.add(Dense(25))
@@ -35,15 +36,15 @@ model.add(Dense(25))
 model.add(Dense(10))
 model.add(Dropout(0.8))
 model.add(Dropout(0.5))
-# 가중치 값에 강제로 변화를 줌
+# Dropout -> 
 model.add(Dense(1))
 
-# 3 컴파일, 훈련
+# 컴파일 및 훈련
 model.compile(loss='mse', optimizer='adam')
 
 model.fit(x_train, y_train, epochs=100, batch_size=1)
 
-# 4 평가, 예측
+# 평가, 예측
 # loss = model.evaluate(x_test, y_test)
 loss = model.evaluate(x_test, y_test)
 print('loss : ', loss)

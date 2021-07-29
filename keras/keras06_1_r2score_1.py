@@ -1,3 +1,7 @@
+# keras-006 #1 [r2 score]
+
+# r2_score(결정계수) 구하기. (친절하게도) 메소드가 있음
+
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense
 from sklearn.model_selection import train_test_split

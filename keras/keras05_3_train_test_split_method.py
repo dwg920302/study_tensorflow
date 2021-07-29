@@ -16,7 +16,13 @@ y = np.array(range(1, 101))
 # y_train, y_test = np.split(y, [70])  # y =  (70,) ,  (30,)
 
 x_train, x_test, y_train, y_test = train_test_split(x, y, train_size=0.6, test_size=0.2, shuffle=True, random_state=55)
-# shuffle=True(default)
+'''
+train_size, test_size = 각각 트레인 데이터의 비율과 테스트 데이터의 비율. min 0 max 1
+(한 쪽만 기입할 경우 다른 한 쪽은 자동으로 1 - 한쪽 값이 됨)
+(양 쪽 다 기입하지 않을 경우 default 0.75 / 0.25)
+shuffle -> 데이터를 섞어서 나눌지 안 섞어서 나눌지 정함. default True.
+random_state -> 이걸 맞춰줘야 데이터가 같은 변수로 섞임. 숫자는 그냥 임의로 입력하면 됨.
+'''
 
 print('x = ', x_train, ', ' ,x_test)
 print('y = ', y_train, ', ' ,y_test)

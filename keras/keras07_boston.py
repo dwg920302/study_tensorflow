@@ -1,9 +1,15 @@
-from sklearn.datasets import load_boston
+# keras-007 [boston dataset]
+
+# sklearn에 제공되는 Dataset 몇 개 중 하나
+
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import r2_score
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense
+from sklearn.datasets import load_boston
 
+
+# 데이터
 
 datasets = load_boston()
 x = datasets.data
@@ -31,16 +37,17 @@ print(datasets.DESCR)
 #     - LSTAT    % lower status of the population
 #     - MEDV     Median value of owner-occupied homes in $1000's
 
-# 데이터는 주어졌으니 모델
+# train test 나누기
+
+x_train, x_test, y_train, y_test = train_test_split(x, y, train_size=0.75, random_state=47)
+
+# 모델 구성
 
 model = Sequential()
 model.add(Dense(10, input_dim=13))
 model.add(Dense(13))
 model.add(Dense(1))
 
-# train test 나누기
-
-x_train, x_test, y_train, y_test = train_test_split(x, y, train_size=0.75, random_state=47)
 
 # 컴파일 및 훈련
 

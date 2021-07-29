@@ -64,5 +64,3 @@ for i in range(1, 10+1):
     plt.axis('off')
     plt.imshow(x_augmented[i], cmap='gray')
 plt.show()
-
-# 같이 했을 때 2번째 그림만 나옴, 덮어씌인거 같음.

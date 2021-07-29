@@ -1,8 +1,10 @@
+# keras-006 #2 [r2 score]
+
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense
 from sklearn.metrics import r2_score
-
 import numpy as np
+
 
 x = [1,2,3,4,5]
 y = [1,2,4,3,5]

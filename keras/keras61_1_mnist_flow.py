@@ -1,3 +1,5 @@
+# 훈련 데이터를 10만개로 증폭하고, 완료 후 기존 모델과 비교
+# save_dir도 temp에 넣어볼 것
 from tensorflow.keras.datasets import fashion_mnist
 from tensorflow.keras.preprocessing.image import ImageDataGenerator
 import numpy as np
@@ -5,6 +7,7 @@ from icecream import ic
 import matplotlib.pyplot as plt
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense, Dropout, Conv2D, MaxPool2D, GlobalAvgPool2D
+
 
 train_datagen = ImageDataGenerator(
     rescale=1./255,
@@ -18,26 +21,36 @@ train_datagen = ImageDataGenerator(
     fill_mode='nearest'
 )
 
-# ImageDataGenerator를 정의
-
 (x_train, y_train), (x_test, y_test) = fashion_mnist.load_data()
 
-# 파일에서 땡겨오려면 flow_from_directory() // x, y가  튜플 형태로 뭉쳐 있음
-# 데이터에서 땡겨오려면 flow()  // x, y가 나뉘어 있음
+ic(x_train.shape)
 
-augment_size=40000
+augment_size=10
 
 randidx=np.random.randint(x_train.shape[0], size=augment_size)
 ic(x_train.shape[0])
-# ic| x_train.shape[0]: 60000
 ic(randidx, randidx.shape)
-# ic| randidx: array([58843, 15235, 13618, ...,  9159,  3154, 17436])
-# randidx.shape: (40000,)
 
 x_augmented = x_train[randidx].copy()
 y_augmented = y_train[randidx].copy()
+x_augmented = x_augmented.reshape(x_augmented.shape[0], 28, 28, 1)
 
-x_augmented = train_datagen.flow(x_augmented.reshape(augment_size, 28, 28, 1), np.zeros(augment_size), batch_size=augment_size, shuffle=False).next()[0]
+x_augmented = train_datagen.flow(x_augmented,
+                                np.zeros(augment_size),
+                                batch_size=augment_size,
+                                shuffle=False,
+                                save_to_dir='../temp/').next()[0]
+
+# 10개의 샘플 뽑아보기
+
+augment_size=40000
+
+x_augmented = train_datagen.flow(x_augmented,
+                                np.zeros(augment_size),
+                                batch_size=augment_size,
+                                shuffle=False).next()[0]
+
+# train에 병합할 데이터 40000개
 
 x_train = x_train.reshape(x_train.shape[0], 28, 28, 1)
 x_test = x_test.reshape(x_test.shape[0], 28, 28, 1)
@@ -70,9 +83,3 @@ model.fit(x_train, y_train, validation_split=1/40, epochs=10)
 
 loss, accuracy = model.evaluate(x_test, y_test)
 ic(loss, accuracy)
-
-'''
-ic| loss: nan, accuracy: 0.10000000149011612
-
--> 더 안 좋아진거 같은데;
-'''

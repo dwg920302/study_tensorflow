@@ -1,7 +1,7 @@
-# HW 2
+# keras-006 #2-2 [r2 score_maximize]
+
 # R2_2에서,
-# R2를 0.9 이상으로, 최대로 만들어보기
-# 0.9는 아직 못함. 뭔 짓을 해도 0.81 이상이 안 됨..
+# R2 Score를 0.9 이상으로, 최대로 만들어보기
 
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense
@@ -40,6 +40,10 @@ y_pred = model.predict(x)
 r2 = r2_score(y, y_pred)
 print('r2 = ', r2)
 
+# 0.9는 아직 못함. 뭔 짓을 해도 0.81 이상이 안 됨..
+
+# 다른 분 이거 성공한 코드가 있던데, 난이도가 ㅎㄷㄷ함..
+
 '''
 [Best Fit]
 epochs=10000, batch_size=5
@@ -51,3 +55,4 @@ loss :  0.37999993562698364
  [4.7999983]]
 r2 =  0.8100000143043345
 '''
+
