@@ -1,3 +1,5 @@
+# keras-008 [verbose에 따른 경과시간 체크]
+
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense
 import numpy as np
@@ -44,7 +46,7 @@ elapsed_time = end - start
 
 # verbose = epoch 결과를 화면에 표시할 것인가 여부
 # 0 = 표시 안함
-# 1 = 표시함 / 2 = 표시함(축약해서) / 3 이상 = epoch 시행 회수만 표시함(극축약)
+# 1 = 표시함 / 2 = 표시함(축약해서, 프로그레스 바만 없앰) / 3 이상 = epoch 시행 회수만 표시함(극축약)
 
 # 평가 및 예측
 loss = model.evaluate(x, y)
@@ -65,6 +67,6 @@ verbose = 0일 때 -> Elapsed Time =  4.471315145492554
 verbose = 1일 때 -> Elapsed Time =  5.918743133544922
 verbose = 2일 때 -> Elapsed Time =  4.828273296356201
 verbose = 3일 때 -> Elapsed Time =  4.859086513519287
-0 < 2=3 <<< 1
+0 < 2=3 <<< 1 (걸린 시간, 걸린 시간이 낮을수록 좋음)
 콘솔에 출력하는 게 시간을 잡아먹음, 특히 프로그레스 바가 시간을 엄청 잡아먹음
 '''
