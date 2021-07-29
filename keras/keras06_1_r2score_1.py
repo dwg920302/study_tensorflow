@@ -4,6 +4,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.metrics import r2_score
 import numpy as np
 
+
 # 1 데이터
 x = np.array(range(100))
 y = np.array(range(1, 101))

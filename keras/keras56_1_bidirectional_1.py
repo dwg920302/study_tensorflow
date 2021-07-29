@@ -35,6 +35,8 @@ dense_1 (Dense)              (None, 1)                 11
 Total params: 601
 Trainable params: 601
 Non-trainable params: 0
+
+Bidirectional의 Parameter 수 : 정확히 감싼 Layer의 2배
 _________________________________________________________________
 '''
 

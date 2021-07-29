@@ -12,7 +12,10 @@ import pandas as pd
 # dataset = pd.read_csv('../_data/winequality-white.csv', sep=';', index_col=None, header=0)
 # print(dataset)
 
+# (x_train, y_train), (x_test, y_test) = mnist.load_data()
 (x_train, y_train), (x_test, y_test) = fashion_mnist.load_data()
+# (x_train, y_train), (x_test, y_test) = cifar10.load_data()
+# (x_train, y_train), (x_test, y_test) = cifar100.load_data()
 
 print(x_train.shape, y_train.shape)
 print(x_test.shape, y_test.shape)

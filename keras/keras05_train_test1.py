@@ -1,10 +1,16 @@
+# keras-005 [Train, Test]
+
+# 훈련(Train(ing)) 표본과 테스트 표본은 원래 서로 다르게 잡아야 함
+# Train은 훈련시킬 데이터, test는 평가할 데이터
+
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense
 import numpy as np
+from icecream import ic
+
 
 # 1 데이터
-# 훈련(Train(ing)) 표본과 테스트 표본을 원래 다음과 같이 서로 다르게 잡아야 함
-# Train은 훈련시킬 데이터, test는 평가할 데이터
+
 x_train = np.array([1,2,3,4,5,6,7])
 y_train = np.array([1,2,3,4,5,6,7])
 x_test = np.array([8,9,10])
@@ -23,7 +29,7 @@ model.fit(x_train, y_train, epochs=1000, batch_size=1)
 
 # 4 평가, 예측
 loss = model.evaluate(x_test, y_test)
-print('loss : ', loss)
+ic(loss)
 
 # result = model.predict([11])
 # print('예측값 : ', result)

@@ -1,10 +1,14 @@
+# keras-005 #2 [Train Test Split]
+
+# 모든 데이터가 train / test로 나뉜 것은 아니므로, 대부분 사용자가 직접 나눠줘야 함.
+
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense
 import numpy as np
+from icecream import ic
 
-# 1 데이터
-# 훈련(Train(ing)) 표본과 테스트 표본을 원래 다음과 같이 서로 다르게 잡아야 함
-# 테스트 표본은 
+
+# 데이터
 x = np.array([1,2,3,4,5,6,7,8,9,10])
 y = np.array([1,2,3,4,5,6,7,8,9,10])
 
@@ -13,7 +17,7 @@ y_train, y_test = np.split(y, [7])
 
 # x_train = x[:7]
 # y_train = y[:7]
-# x_test = x[7:]
+# x_test = x[7:] or x[-3:]
 # y_test = y[7:]
 
 print('x = ', x_train, ', ' ,x_test)
@@ -32,7 +36,7 @@ model.fit(x_train, y_train, epochs=1000, batch_size=1)
 
 # 4 평가, 예측
 loss = model.evaluate(x_test, y_test)
-print('loss : ', loss)
+ic(loss)
 
 # result = model.predict([11])
 # print('예측값 : ', result)

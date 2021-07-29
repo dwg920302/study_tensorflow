@@ -1,6 +1,6 @@
 # keras-004 [Scatter]
 
-# 사실 3번과 크게 다를 게 없음
+# 사실 3번과 크게 다를 게 없음. scatter는 plot상에 x,y 값을 기반으로 점으로 표시됨.
 
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense
