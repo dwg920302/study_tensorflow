@@ -13,7 +13,7 @@ x = x.reshape(4, 3, 1) # (bacth_size, timesteps, feature)
 #2. model
 model = Sequential()
 # model.add(SimpleRNN(units=10, activation='relu', input_shape=(3,1)))
-model.add(LSTM(units=10, activation='relu', input_shape=(3,1), return_sequences=True)) # units = output, 행무시이기때문에 (3,1)
+model.add(LSTM(units=10, activation='relu', input_shape=(3,1), return_sequences=True)) # units = output
 model.add(Bidirectional(LSTM(units=10, activation='relu')))
 model.add(Dense(9, activation='relu'))
 model.add(Dense(1))

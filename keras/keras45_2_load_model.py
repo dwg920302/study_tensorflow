@@ -28,7 +28,7 @@ x_test = x_test.reshape(x_test.shape[0], 28, 28, 1)
 # 2. model
 
 
-model = load_model('./_save/keras45_1_save_model.h5')
+model = load_model('../_save/keras45_1_save_model.h5')
 model.summary()
 
 # 3. compile fit

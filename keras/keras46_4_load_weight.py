@@ -46,7 +46,7 @@ es = EarlyStopping(monitor='val_loss', patience=10, mode='min', verbose=1)
 hist = model.fit(x_train, y_train, epochs=25, batch_size=64, verbose=2,
     validation_split=0.05, callbacks=[es])
 
-model.load_weights('./_save/keras46_1_save_weight_1.h5')
+model.load_weights('../_save/keras46_1_save_weight_1.h5')
 
 elapsed_time = time.time() - start_time
 

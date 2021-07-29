@@ -39,7 +39,7 @@ model.compile(loss='mse', optimizer='adam')
 hist = model.fit(x_train, y_train, epochs=1000, batch_size=64, verbose=2,
     validation_split=0.05)
 
-model.save_weights('./_save/keras46_1_save_weight_2.h5') # 불러올 때 compile 다음에
+model.save_weights('../_save/keras46_1_save_weight_2.h5') # 불러올 때 compile 다음에
 
 elapsed_time = time.time() - start_time
 

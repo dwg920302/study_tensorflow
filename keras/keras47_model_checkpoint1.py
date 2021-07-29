@@ -33,12 +33,12 @@ model.compile(loss='mse', optimizer='adam')
 
 es = EarlyStopping(monitor='val_loss', patience=100, mode='min', verbose=1)
 cp = ModelCheckpoint(monitor='val_loss', save_best_only=True, mode='auto',
-                    filepath='./_save/model_checkpoint/keras47_mcp.hdf5')
+                    filepath='../_save/model_checkpoint/keras47_mcp.hdf5')
 
 hist = model.fit(x_train, y_train, epochs=500, batch_size=64, verbose=2,
     validation_split=0.05, callbacks=[es, cp])
 
-model.save('./_save/keras47_mcp.h5')
+model.save('../_save/keras47_mcp.h5')
 
 elapsed_time = time.time() - start_time
 

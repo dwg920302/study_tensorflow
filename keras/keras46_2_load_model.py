@@ -19,8 +19,8 @@ x_test = scaler.transform(x_test)
 
 # 2. model
 
-# model = load_model('./_save/keras46_1_save_model_1.h5')
-model = load_model('./_save/keras46_1_save_model_2.h5')
+# model = load_model('../_save/keras46_1_save_model_1.h5')
+model = load_model('../_save/keras46_1_save_model_2.h5')
 model.summary()
 # 3. compile fit
 start_time = time.time()

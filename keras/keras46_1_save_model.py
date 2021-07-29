@@ -29,7 +29,7 @@ model.add(Dense(8, activation='relu'))
 model.add(Dense(1))
 
 model.summary()
-model.save('./_save/keras46_1_save_model_1.h5') # Summary 까지 Save. 
+model.save('../_save/keras46_1_save_model_1.h5') # Summary 까지 Save. 
 
 # 3. compile fit
 model.compile(loss='mse', optimizer='adam', metrics=['accuracy'])
@@ -38,7 +38,7 @@ start_time = time.time()
 hist = model.fit(x_train, y_train, epochs=1000, batch_size=64, verbose=2,
     validation_split=0.05)
 
-model.save('./_save/keras46_1_save_model_2.h5') # Fit 까지 Save. 이후에 이 모델을 적용하면 그대로 평가에 쓸 수 있음.
+model.save('../_save/keras46_1_save_model_2.h5') # Fit 까지 Save. 이후에 이 모델을 적용하면 그대로 평가에 쓸 수 있음.
 
 elapsed_time = time.time() - start_time
 

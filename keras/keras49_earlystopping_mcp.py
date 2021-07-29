@@ -56,7 +56,7 @@ mcp = ModelCheckpoint(monitor='val_loss', mode='auto', verbose=1, save_best_only
 model.compile(loss='mse', optimizer='adam', metrics=['mae'])
 model.fit([x1_train, x2_train], y1_train, batch_size=10, epochs=100, verbose=1, validation_split=3/17, callbacks=[es, mcp])
 
-model.save('./_save/keras49_saved_model.h5')
+model.save('../_save/keras49_saved_model.h5')
 
 print('====================== 기본 출력 ========================')
 
@@ -70,7 +70,7 @@ r2 = r2_score(y1_test, y_predict)
 print('r2 : ', r2)
 
 print('====================== load_model ========================')
-model_2 = load_model('./save/keras49_saved_model.h5')
+model_2 = load_model('../save/keras49_saved_model.h5')
 
 results = model_2.evaluate([x1_test, x2_test], y1_test)
 print('loss : ', results[0])
@@ -81,7 +81,7 @@ r2 = r2_score(y1_test, y_predict)
 print('r2 : ', r2)
 
 print('====================== Model Checkpoint ========================')
-model_3 = load_model('./_save/model_checkpoint/keras49_mcp.hdf5')
+model_3 = load_model('../_save/model_checkpoint/keras49_mcp.hdf5')
 
 results = model_3.evaluate([x1_test, x2_test], y1_test)
 print('loss : ', results[0])

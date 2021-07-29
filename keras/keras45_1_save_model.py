@@ -56,7 +56,7 @@ model.add(Dense(10, activation='softmax'))
 
 model.summary()
 # model.save('../_save/keras45_1_save_model.h5')
-model.save('./_save/keras45_1_save_model.h5') # 현재까지의 진행상황이 저장된 모델을 Save
+model.save('../_save/keras45_1_save_model.h5') # 현재까지의 진행상황이 저장된 모델을 Save
 
 # 3. compile fit
 model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['accuracy'])

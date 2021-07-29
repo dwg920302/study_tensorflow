@@ -53,8 +53,8 @@ es = EarlyStopping(monitor='val_loss', patience=20, mode='auto', verbose=1,
 
 date = datetime.datetime.now()
 date_time = date.strftime("%m%d_%H%M")
-filepath_model = './_save/'
-filepath_mcp = './_save/model_checkpoint/'
+filepath_model = '../_save/'
+filepath_mcp = '../_save/model_checkpoint/'
 filename = '.{epoch:04d}-{val_loss:.4f}.hdf5'
 modelpath = "".join([filepath_mcp, "k47_",  date_time, "_", filename])
 # 파일명 + 시간 + loss
@@ -65,7 +65,7 @@ mcp = ModelCheckpoint(monitor='val_loss', mode='auto', verbose=1, save_best_only
 model.compile(loss='mse', optimizer='adam', metrics=['mae'])
 model.fit([x1_train, x2_train], y1_train, batch_size=10, epochs=100, verbose=1, validation_split=3/17, callbacks=[es, mcp])
 
-model.save('./_save/keras47_3_saved_model.h5')
+model.save('../_save/keras47_3_saved_model.h5')
 
 print('====================== 기본 출력 ========================')
 
@@ -79,7 +79,7 @@ r2 = r2_score(y1_test, y_predict)
 print('r2 : ', r2)
 
 print('====================== load_model ========================')
-model_2 = load_model('./_save/keras47_3_saved_model.h5')
+model_2 = load_model('../_save/keras47_3_saved_model.h5')
 
 results = model_2.evaluate([x1_test, x2_test], y1_test)
 print('loss : ', results[0])
