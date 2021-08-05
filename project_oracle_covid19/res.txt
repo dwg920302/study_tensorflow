@@ -1,0 +1,119 @@
+'''
+(with)
+
+(with model 1, validation 5%, epoch 1000, es_patience 100)
+Epoch 107/1000
+347/347 - 4s - loss: 39689.9336 - val_loss: 1044727.2500
+Restoring model weights from the end of the best epoch.
+Epoch 00107: early stopping
+ic| y_pred: array([[962.0119]], dtype=float32)
+Epoch 104/1000
+347/347 - 4s - loss: 11801.7217 - val_loss: 757756.5000
+Restoring model weights from the end of the best epoch.
+Epoch 00104: early stopping
+ic| y_pred: array([[1392.3138]], dtype=float32)
+
+'''
+
+'''
+(with model 1_2, validation 5%, epoch 1000, es_patience 100)
+Epoch 104/1000
+347/347 - 4s - loss: 10075.9326 - val_loss: 637719.4375
+Restoring model weights from the end of the best epoch.
+Epoch 00104: early stopping
+ic| y_pred: array([[1133.6318]], dtype=float32)
+'''
+
+'''
+(with model 3, validation 5%, epoch 1000, es_patience 100)
+Epoch 145/1000
+347/347 - 6s - loss: 42139.9414 - val_loss: 696100.0000
+Restoring model weights from the end of the best epoch.
+Epoch 00145: early stopping
+ic| y_pred: array([[1135.048]], dtype=float32)
+'''
+
+'''
+08/02, 08/03
+model 1
+Epoch 00058: early stopping
+소요시간 =  190.4875204563141
+ic| y_pred: array([[1292.357]], dtype=float32)
+Epoch 00055: early stopping
+소요시간 =  181.43151593208313
+ic| y_pred: array([[1292.0881]], dtype=float32)
+
+1162.9596
+
+-> 가장 오차값이 적게 나옴 (추정)
+
+model 1_1
+Epoch 00055: early stopping
+소요시간 =  224.9114990234375
+ic| y_pred: array([[1367.666]], dtype=float32)
+
+Epoch 00052: early stopping
+소요시간 =  212.92181658744812
+ic| y_pred: array([[1085.3447]], dtype=float32)
+
+Epoch 00054: early stopping
+소요시간 =  221.3767671585083
+ic| y_pred: array([[1229.7776]], dtype=float32)
+
+-> 값이 그나마 근접하게 나왔으나, 편차가 꽤 있음 (+-140)
+
+model 1_2
+(patience 50)
+Epoch 00059: early stopping
+소요시간 =  237.518816947937
+ic| y_pred: array([[941.1172]], dtype=float32)
+
+Epoch 00055: early stopping
+소요시간 =  218.94908452033997
+ic| y_pred: array([[968.6198]], dtype=float32)
+
+Epoch 00059: early stopping
+소요시간 =  231.82772207260132
+ic| y_pred: array([[1006.1367]], dtype=float32)
+
+(patience 25)
+
+Epoch 00030: early stopping
+소요시간 =  126.32627010345459
+ic| y_pred: array([[1053.8174]], dtype=float32)
+
+Epoch 00094: early stopping
+소요시간 =  370.2764208316803
+ic| y_pred: array([[988.05725]], dtype=float32)
+
+Epoch 00035: early stopping
+소요시간 =  139.76956629753113
+ic| y_pred: array([[1039.5981]], dtype=float32)
+
+-> 가장 오차값이 적게 나왔으나, 값이 개판이 났음 (추정)
+
+
+model 1_3
+Epoch 00053: early stopping
+소요시간 =  348.17413234710693
+ic| y_pred: array([[661.04895]], dtype=float32)
+
+Epoch 00060: early stopping
+소요시간 =  408.2172119617462
+ic| y_pred: array([[582.0867]], dtype=float32)
+
+Epoch 00112: early stopping
+소요시간 =  3236.5465507507324
+ic| y_pred: array([[997.43695]], dtype=float32)
+
+-> 값이랑 너무 멀리 떨어져 있음
+
+model 1_4
+Epoch 00096: early stopping
+소요시간 =  3549.010726451874
+ic| y_pred: array([[771.52594]], dtype=float32)
+
+Epoch 00094: early stopping
+소요시간 =  3680.1786847114563
+ic| y_pred: array([[1046.6038]], dtype=float32)
+'''
