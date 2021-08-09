@@ -3,10 +3,12 @@
 # 훈련(Train(ing)) 표본과 테스트 표본은 원래 서로 다르게 잡아야 함
 # Train은 훈련시킬 데이터, test는 평가할 데이터
 
+from icecream import ic
+
+import numpy as np
+
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense
-import numpy as np
-from icecream import ic
 
 
 # 1 데이터

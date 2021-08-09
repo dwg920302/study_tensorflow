@@ -2,11 +2,17 @@
 
 # r2_score(결정계수) 구하기. (친절하게도) 메소드가 있음
 
+from icecream import ic
+
+import numpy as np
+
+from sklearn.model_selection import train_test_split
+
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense
-from sklearn.model_selection import train_test_split
+
 from sklearn.metrics import r2_score
-import numpy as np
+
 
 
 # 1 데이터
@@ -42,16 +48,16 @@ model.fit(x_train, y_train, epochs=500, batch_size=1)
 
 # 4 평가, 예측
 loss = model.evaluate(x_test, y_test)
-print('loss : ', loss)
+ic(loss)
 
 # result = model.predict([11])
 # print('예측값 : ', result)
 
 y_predict = model.predict(x_test)
-print('예측값 = ' ,y_predict)
+print('예측 값 : ', y_predict)
 
-r2 = r2_score(y_test, y_predict)
-print('r2 = ', r2)
+r2_score = r2_score(y_test, y_predict)
+ic(r2_score)
 
 # plt.scatter(x, y)
 # plt.plot(x, y_predict, color='red')

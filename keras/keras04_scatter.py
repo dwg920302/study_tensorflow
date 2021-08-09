@@ -1,10 +1,14 @@
 # keras-004 [Scatter]
 
-# 사실 3번과 크게 다를 게 없음. scatter는 plot상에 x,y 값을 기반으로 점으로 표시됨.
+# 사실 3번과 크게 다르지 않음. scatter는 plot상에 x,y 값을 기반으로 점으로 표시됨.
+
+from icecream import ic
+
+import numpy as np
 
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense
-import numpy as np
+
 import matplotlib.pyplot as plt
 
 
@@ -25,10 +29,10 @@ model.fit(x, y, epochs=1000, batch_size=1)
 
 # 4 평가, 예측
 loss = model.evaluate(x, y)
-print('loss : ', loss)
+ic(loss)
 
-# result = model.predict([11])
-# print('예측값 : ', result)
+# predict = model.predict([11])
+# ic(predict)
 
 y_predict = model.predict(x)
 

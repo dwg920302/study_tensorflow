@@ -2,10 +2,14 @@
 
 # train과 test를 자동으로 나눠주는 메소드
 
+from icecream import ic
+
+import numpy as np
+
+from sklearn.model_selection import train_test_split
+
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense
-from sklearn.model_selection import train_test_split
-import numpy as np
 
 
 # 데이터
@@ -43,7 +47,7 @@ model.fit(x_train, y_train, epochs=100, batch_size=1)
 
 # 평가 및 예측
 loss = model.evaluate(x_test, y_test)
-print('loss : ', loss)
+ic(loss)
 
 # result = model.predict([11])
 # print('예측값 : ', result)

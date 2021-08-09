@@ -1,8 +1,12 @@
 # keras-002 [심층형 모델 기본형]
 
+from icecream import ic # print 대신
+
+import numpy as np
+
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense
-import numpy as np
+
 
 # 1 데이터
 x = np.array([1,2,3,4,5])
@@ -22,10 +26,10 @@ model.fit(x, y, epochs=10000, batch_size=5)
 
 # 4 평가, 예측
 loss = model.evaluate(x, y)
-print('loss : ', loss)
+ic(loss)
 
-result = model.predict([6])
-print('예측값 : ', result)
+predict = model.predict([6])
+ic(predict)
 
 '''
 [Best Fit]

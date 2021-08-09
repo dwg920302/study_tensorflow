@@ -1,8 +1,12 @@
 # keras-003 #4 [Pyplot #4]
 
+from icecream import ic
+
+import numpy as np
+
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense
-import numpy as np
+
 import matplotlib.pyplot as plt
 
 
@@ -31,13 +35,13 @@ model.fit(x, y, batch_size=30, epochs=6000)
 
 # 평가 및 예측
 loss = model.evaluate(x, y)
-print('오차 : ', loss)
+ic(loss)
 
 x_pred = np.array([[9]])
 # print(x_pred.shape) # (1, 2)
 
-result = model.predict(x_pred)
-print('예측 값 : ', result)
+predict = model.predict(x_pred)
+ic(predict)
 
 y_pred = model.predict(x)
 

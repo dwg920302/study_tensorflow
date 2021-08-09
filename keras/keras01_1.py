@@ -1,6 +1,7 @@
 # keras-001 [Keras 튜토리얼]
 
 import numpy as np  # 설명 생략
+
 from tensorflow.keras.models import Sequential  # 순차적 모델(Sequential)을 import함
 from tensorflow.keras.layers import Dense   # Layer의 한 종류인 Dense를 import함. 기본 형태라고 봐도 됨
 

@@ -2,44 +2,24 @@ from tensorflow.keras.models import Model
 from tensorflow.keras.layers import Input, Dense, Dropout, concatenate, GRU, LSTM, Bidirectional, Reshape
 
 
-def use_model():
-    model = model_0_1()
+def use_model(x1_shape, x2_shape):
+    model = model_0(x1_shape, x2_shape)
+    # model = model_2_3(x1_shape, x2_shape)
+    # model = model_2_2(x1_shape, x2_shape)
     return model
 
-def model_0():
+# example
+def model_0(x1_shape, x2_shape):
     model = Model()
 
     # input_1
-    input_1 = Input(shape=(5, ))
-    dense_1_1 = Dense(64, activation='relu')(input_1)
+    input_1 = Input(shape=(x1_shape, ))
+    dense_1_1 = Dense(64)(input_1)
     output_1 = Dense(128, activation='relu')(dense_1_1)
 
     # input_2
-    input_2 = Input(shape=(13, ))
-    dense_2_1 = Dense(256, activation='relu')(input_2)
-    output_2 = Dense(512, activation='relu')(dense_2_1)
-
-    merge_1 = concatenate([output_1, output_2])
-    merge_2 = Dense(256, activation='relu')(merge_1)
-    merge_3 = Dense(16, activation='relu')(merge_2)
-    last_output = Dense(1, name='output-1')(merge_3)
-
-    model = Model(inputs=[input_1, input_2], outputs=last_output)
-
-    return model
-
-
-def model_0_1():
-    model = Model()
-
-    # input_1
-    input_1 = Input(shape=(5, ))
-    dense_1_1 = Dense(64, activation='relu')(input_1)
-    output_1 = Dense(128, activation='relu')(dense_1_1)
-
-    # input_2
-    input_2 = Input(shape=(13, ))
-    dense_2_1 = Dense(256, activation='relu')(input_2)
+    input_2 = Input(shape=(x2_shape, ))
+    dense_2_1 = Dense(256)(input_2)
     output_2 = Dense(512, activation='relu')(dense_2_1)
 
     merge_1 = concatenate([output_1, output_2])
@@ -149,12 +129,12 @@ def model_2():
     dense_1_1 = Dense(64)(input_1)
     output_1 = Dense(128, activation='relu')(dense_1_1)
 
-
     # input_2
     input_2 = Input(shape=(13, ))
     dense_2_1 = Dense(256)(input_2)
     output_2 = Dense(512, activation='relu')(dense_2_1)
 
+    # concat
     merge_1 = concatenate([output_1, output_2])
     merge_2 = Dense(256, activation='relu')(merge_1)
     dropout_1 = Dropout(1/2)(merge_2)
@@ -167,6 +147,91 @@ def model_2():
     model = Model(inputs=[input_1, input_2], outputs=last_output)
 
     return model
+
+
+def model_2_1():
+    model = Model()
+
+    # input_1
+    input_1 = Input(shape=(5, ))
+    dense_1_1 = Dense(64)(input_1)
+    output_1 = Dense(128, activation='relu')(dense_1_1)
+
+    # input_2
+    input_2 = Input(shape=(13, ))
+    dense_2_1 = Dense(256)(input_2)
+    output_2 = Dense(512, activation='relu')(dense_2_1)
+
+    # concat
+    merge_1 = concatenate([output_1, output_2])
+    merge_2 = Dense(256, activation='relu')(merge_1)
+    dropout_1 = Dropout(0.25)(merge_2)
+    merge_3 = Dense(64, activation='relu')(dropout_1)
+    merge_4 = Dense(16, activation='relu')(merge_3)
+    dropout_2 = Dropout(0.25)(merge_4)
+    merge_5 = Dense(4, activation='relu')(dropout_2)
+    last_output = Dense(1, name='output-1')(merge_5)
+
+    model = Model(inputs=[input_1, input_2], outputs=last_output)
+
+    return model
+
+
+def model_2_2(x1_shape, x2_shape):
+    model = Model()
+
+    # input_1
+    input_1 = Input(shape=(x1_shape, ))
+    dense_1_1 = Dense(64)(input_1)
+    output_1 = Dense(128, activation='relu')(dense_1_1)
+
+    # input_2
+    input_2 = Input(shape=(x2_shape, ))
+    dense_2_1 = Dense(256)(input_2)
+    output_2 = Dense(512, activation='relu')(dense_2_1)
+
+    # concat
+    merge_1 = concatenate([output_1, output_2])
+    merge_2 = Dense(256, activation='relu')(merge_1)
+    dropout_1 = Dropout(1/8)(merge_2)
+    merge_3 = Dense(64, activation='relu')(dropout_1)
+    merge_4 = Dense(16, activation='relu')(merge_3)
+    dropout_2 = Dropout(1/8)(merge_4)
+    merge_5 = Dense(4, activation='relu')(dropout_2)
+    last_output = Dense(1, name='output-1')(merge_5)
+
+    model = Model(inputs=[input_1, input_2], outputs=last_output)
+
+    return model
+
+
+def model_2_3(x1_shape, x2_shape):
+    model = Model()
+
+    # input_1
+    input_1 = Input(shape=(x1_shape, ))
+    dense_1_1 = Dense(64)(input_1)
+    output_1 = Dense(128, activation='relu')(dense_1_1)
+
+    # input_2
+    input_2 = Input(shape=(x2_shape, ))
+    dense_2_1 = Dense(256)(input_2)
+    output_2 = Dense(512, activation='relu')(dense_2_1)
+
+    # concat
+    merge_1 = concatenate([output_1, output_2])
+    merge_2 = Dense(256, activation='relu')(merge_1)
+    dropout_1 = Dropout(1/16)(merge_2)
+    merge_3 = Dense(64, activation='relu')(dropout_1)
+    merge_4 = Dense(16, activation='relu')(merge_3)
+    dropout_2 = Dropout(1/16)(merge_4)
+    merge_5 = Dense(4, activation='relu')(dropout_2)
+    last_output = Dense(1, name='output-1')(merge_5)
+
+    model = Model(inputs=[input_1, input_2], outputs=last_output)
+
+    return model
+
 
 
 def model_3():
@@ -217,6 +282,34 @@ def model_4():
     merge_3 = Dense(64, activation='relu')(dropout_1)
     merge_4 = Dense(16, activation='relu')(merge_3)
     dropout_2 = Dropout(1/2)(merge_4)
+    merge_5 = Dense(4, activation='relu')(dropout_2)
+    last_output = Dense(1, name='output-1')(merge_5)
+
+    model = Model(inputs=[input_1, input_2], outputs=last_output)
+
+    return model
+
+def model_4_2():
+    model = Model()
+
+    # input_1
+    input_1 = Input(shape=(5, ))
+    dense_1_1 = Dense(64)(input_1)
+    output_1 = Dense(128, activation='relu')(dense_1_1)
+
+    # input_2
+    input_2 = Input(shape=(13, ))
+    dense_2_1 = Dense(256)(input_2)
+    output_2 = Dense(512, activation='relu')(dense_2_1)
+
+    # concat
+    merge_1 = concatenate([output_1, output_2])
+    reshape_1 = Reshape((640, 1))(merge_1)
+    merge_2 = GRU(256, activation='relu')(reshape_1)
+    dropout_1 = Dropout(1/8)(merge_2)
+    merge_3 = Dense(64, activation='relu')(dropout_1)
+    merge_4 = Dense(16, activation='relu')(merge_3)
+    dropout_2 = Dropout(1/8)(merge_4)
     merge_5 = Dense(4, activation='relu')(dropout_2)
     last_output = Dense(1, name='output-1')(merge_5)
 

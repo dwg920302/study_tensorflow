@@ -1,6 +1,17 @@
+# keras-012 [input_shape]
+
+# 2차원 이상의 데이터를 집어넣어야 할 경우 input_dim 대신 input_shape를 사용함.
+# input_dim = 5는 input_shape = (5,) 와 같기도 함
+# 행무시 열우선 에 따라, input_shape에 값을 넣을 땐 원래 데이터의 맨 앞만 자르면 됨.
+# 예를 들어, 데이터가 (824, 5) 라면 input_shape에는 (5, )를 넣어주면 됨.
+
+from icecream import ic
+
+import numpy as np
+
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense
-import numpy as np
+
 
 # 데이터 구성
 x = np.array([[1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
@@ -8,22 +19,20 @@ x = np.array([[1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
     [10, 9, 8, 7, 6, 5, 4, 3, 2, 1]])
     # 3행 10열
 
-print(x.shape)
+ic(x.shape)
 
 x = np.transpose(x)
 # 행렬 반전 : 3행 10열 -> 10행 3열
 
-print(x.shape)
+ic(x.shape)
 
 y = np.array([11,12,13,14,15,16,17,18,19,20])
 
-print(y.shape)
+ic(y.shape)
 
 # 모델 구성
 model = Sequential()
-model.add(Dense(3, input_shape=(3, )))
-# model.add (Dense(3, input_dim=3)) 과 같은 뜻
-# 행무시 열우선 에 따라, input_shape에 값을 넣을 땐 원래 데이터의 맨 앞만 자르면 됨.
+model.add(Dense(3, input_shape=(3, )))  # model.add (Dense(3, input_dim=3)) 과 같은 뜻
 model.add(Dense(4))
 model.add(Dense(1))
 

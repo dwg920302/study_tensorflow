@@ -1,9 +1,13 @@
 # keras-006 #2 [r2 score]
 
+from icecream import ic
+
+import numpy as np
+
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense
+
 from sklearn.metrics import r2_score
-import numpy as np
 
 
 x = [1,2,3,4,5]
@@ -20,17 +24,19 @@ model.add(Dense(1, input_dim=1))
 
 # 3-모델 컴파일 및 훈련
 model.compile(loss='mse', optimizer='adam')
-model.fit(x, y, epochs=10000, batch_size=5)
+model.fit(x, y, epochs=1000, batch_size=5)
 
 # 4-평가 및 예측
 loss = model.evaluate(x, y)
-print('loss : ', loss)
+ic(loss)
 
 y_predict = model.predict(x)
 print('예측 값 : ', y_predict)
 
-r2 = r2_score(y, y_predict)
-print('r2 = ', r2)
+print(y.shape, y_predict.shape)
+
+r2_score = r2_score(y, y_predict)
+ic(r2_score)
 
 '''
 [Best Fit]

@@ -49,7 +49,6 @@ y_predict = model.predict(x_test)
 r2 = r2_score(y_test, y_predict)
 print('R^2 Score = ', r2)
 
-# 현재 ISSUE = 작동은 하는데 ACCURACY가 무조건 0이 나옴
 '''
 loss =  41.651798248291016
 R^2 Score =  0.2484872984874772

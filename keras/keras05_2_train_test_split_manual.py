@@ -2,10 +2,12 @@
 
 # 모든 데이터가 train / test로 나뉜 것은 아니므로, 대부분 사용자가 직접 나눠줘야 함.
 
+from icecream import ic
+
+import numpy as np
+
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense
-import numpy as np
-from icecream import ic
 
 
 # 데이터

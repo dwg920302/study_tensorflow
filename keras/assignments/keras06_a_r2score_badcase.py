@@ -1,18 +1,25 @@
 # keras-006 #1-2 [r2 score]
 
-# 1 R2를 음수가 아닌 0.5 이하로 만들기 (나쁘게)
-# 2 데이터 건드리지 않기
-# 3 레이어는 Input output 포함 6개 이상
-# 4 배치 사이즈 = 1(exact) / # 5 epo = 100 이상
-# 6 Hidden Layer의 Node는 10개 이상 1000개 이하
-# 7 train 비율 70%
+'''
+1 R2를 음수가 아닌 0.5 이하로 만들기 (나쁘게)
+2 데이터 건드리지 않기
+3 레이어는 Input output 포함 6개 이상
+4 배치 사이즈 = 1(exact) / # 5 epo = 100 이상
+6 Hidden Layer의 Node는 10개 이상 1000개 이하
+7 train 비율 70%
+'''
+
+from icecream import ic
+
+import numpy as np
+
+from sklearn.model_selection import train_test_split
 
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense
 from tensorflow.keras.layers import Dropout
-from sklearn.model_selection import train_test_split
+
 from sklearn.metrics import r2_score
-import numpy as np
 
 
 # 데이터
@@ -47,7 +54,7 @@ model.fit(x_train, y_train, epochs=100, batch_size=1)
 # 평가, 예측
 # loss = model.evaluate(x_test, y_test)
 loss = model.evaluate(x_test, y_test)
-print('loss : ', loss)
+ic(loss)
 
 # result = model.predict([11])
 # print('예측값 : ', result)
@@ -55,8 +62,8 @@ print('loss : ', loss)
 y_predict = model.predict(x_test)
 print('예측값 = ' ,y_predict)
 
-r2 = r2_score(y_test, y_predict)
-print('r2 = ', r2)
+r2_score = r2_score(y_test, y_predict)
+ic(r2_score)
 
 # plt.scatter(x, y)
 # plt.plot(x, y_predict, color='red')

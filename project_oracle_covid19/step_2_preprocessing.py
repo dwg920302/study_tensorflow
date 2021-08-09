@@ -6,14 +6,13 @@ import pandas as pd
 x1 = pd.DataFrame(np.load('../_save/X1_COVID_KOR.npy', allow_pickle=True))
 x2 = pd.DataFrame(np.load('../_save/X2_COVID_KOR.npy', allow_pickle=True))
 
-ic(x1.shape, x2.shape)  # x1.shape: (368, 4), x2.shape: (367, 13)
+ic(x1.shape, x2.shape)  # x1.shape: (368, 4), x2.shape: (367, 12)
 # x1은 x2와 다르게 전 날의 데이터 한 줄이 추가되어 있어서 1줄 많음.
 
 ic(x1.head(), x2.head())
 
-columns_x1 = ['Date', 'Confirmed_Total', 'Deaths_Total', 'Recovered_Total', 'Confirmed_Today']
-columns_x2 = ['Date',
-            'avg_temp_avg', 'avg_temp_min', 'avg_temp_max', 
+columns_x1 = ['Confirmed_Total', 'Deaths_Total', 'Recovered_Total', 'Confirmed_Today']
+columns_x2 = ['avg_temp_avg', 'avg_temp_min', 'avg_temp_max', 
             'tmp_diff_avg', 'tmp_diff_min', 'tmp_diff_max',
             'rainfall_avg', 'rainfall_min', 'rainfall_max',
             'humidity_avg', 'humidity_min', 'humidity_max']
@@ -26,7 +25,8 @@ columns_x2 = ['Date',
 
 # 오늘 확진자 수를 predict의 결과인 y값으로 함
 
-dataset = x1[1] 
+# dataset = x1[1]
+dataset = x1[0] 
 
 def split_x(dataset, size):
     arr = []
@@ -55,32 +55,48 @@ ic(y_tmp, y_tmp.shape)
 y = y_tmp[1:]
 
 x1 = x1[1:] # 7월 31일 데이터 삭제 (크기를 맞추어 주어야 하므로)
-x1[4] = y_tmp
+x1[3] = y_tmp
 
 ic(y.shape)
 
 ic(x1.head(), x1.shape, x2.shape)
 
+np.save('../_save/X1_COVID_KOR_p.npy', arr=x1)
+
 # It's Scaler Time!
 
-date_scaler = MinMaxScaler()
-scalerset_x1 = [date_scaler]
-for i in range(x1.shape[1] - 1):
+# date_scaler = MinMaxScaler()
+# scalerset_x1 = [date_scaler]
+
+# for i in range(x1.shape[1] - 1):
+#     scalerset_x1.append(MaxAbsScaler())
+
+# # scalerset_x2 = [date_scaler]
+
+# for i in range(x2.shape[1] - 1):
+#     scalerset_x2.append(MinMaxScaler())
+
+scalerset_x1 = []
+scalerset_x2 = []
+
+for i in range(x1.shape[1]):
     scalerset_x1.append(MaxAbsScaler())
-scalerset_x2 = [date_scaler]
-for i in range(x2.shape[1] - 1):
+
+for i in range(x2.shape[1]):
     scalerset_x2.append(MinMaxScaler())
+
 
 ic(x1.head(), x1.tail(), x2.head(), x2.tail())
 
-for i in x1:
+for i in range(x1.shape[1]):
     x1[i] = scalerset_x1[i].fit_transform(x1[i].to_numpy().reshape(-1, 1))
 
-for i in x2:
-    if(i == 0):
-        x2[i] = scalerset_x2[i].transform(x2[i].to_numpy().reshape(-1, 1))
-    else:
-        x2[i] = scalerset_x2[i].fit_transform(x2[i].to_numpy().reshape(-1, 1))
+for i in range(x2.shape[1]):
+    # if(i == 0):
+    #     x2[i] = scalerset_x2[i].transform(x2[i].to_numpy().reshape(-1, 1))
+    # else:
+    #     x2[i] = scalerset_x2[i].fit_transform(x2[i].to_numpy().reshape(-1, 1))
+    x2[i] = scalerset_x2[i].fit_transform(x2[i].to_numpy().reshape(-1, 1))
 
 y = np.array([float(i) for i in y])
 

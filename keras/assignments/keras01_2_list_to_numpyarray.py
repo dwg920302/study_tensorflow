@@ -1,12 +1,12 @@
 # keras-001 #2 [list to np.array]
 
+import numpy as np
+
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense
-import numpy as np
 
 
 # 1 Raw Data
-
 x = [1,2,3,4,5]
 y = [1,2,4,3,5]
 x_pred=[6]

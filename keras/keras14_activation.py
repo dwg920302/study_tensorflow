@@ -1,5 +1,7 @@
+from icecream import ic
+
 import numpy as np
-import pandas as pd
+
 from sklearn.datasets import load_diabetes
 from sklearn.model_selection import train_test_split
 from tensorflow.keras.models import Sequential
@@ -37,7 +39,7 @@ model.add(Dense(2, activation='relu'))
 model.add(Dense(1))
 # activation은 마지막에 안 넣어줌
 
-# 컴파일 및 훔련
+# 컴파일 및 훈련
 model.compile(optimizer='adam', loss='mse')
 model.fit(x_train, y_train, epochs=200, verbose=2, validation_split=0.25, shuffle=True)
 

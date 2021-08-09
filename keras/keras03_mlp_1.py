@@ -1,8 +1,12 @@
 # keras-003 [Transpose, Pyplot]
 
+from icecream import ic
+
+import numpy as np
+
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense
-import numpy as np
+
 import matplotlib.pyplot as plt
 
 
@@ -35,15 +39,17 @@ model.fit(x, y, batch_size=6, epochs=6900)
 
 # 평가 및 예측
 loss = model.evaluate(x, y)
-print('오차 : ', loss)
+ic(loss)
 
 x_pred = np.array([[10, 1.3]])
 # print(x_pred.shape) # (1, 2)
 
-result = model.predict(x_pred)
-print('예측 값 : ', result)
+predict = model.predict(x_pred)
+ic(predict)
 
 y_pred = model.predict(x)
+
+# 데이터 시각화
 
 plt.scatter(x, y)   # x, y를 각 축으로 해서 값들을 점으로 분산시킴
 plt.plot(x, y_pred, color='red')    # x, y_pred를 기준으로 선을 그림. 색상은 'red'.

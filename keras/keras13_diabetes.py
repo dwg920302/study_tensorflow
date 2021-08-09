@@ -1,32 +1,43 @@
+# keras-013 [diabetes dataset]
+
+# sklearn에 제공되는 Dataset 몇 개 중 하나
+
+from icecream import ic
+
 import numpy as np
-import pandas as pd
+
 from sklearn.datasets import load_diabetes
+
 from sklearn.model_selection import train_test_split
+
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense
+
 from sklearn.metrics import r2_score
 
+
+# Data
 dataset = load_diabetes()
 x = dataset.data
 y = dataset.target
 
-print(x.shape, y.shape)
+ic(x.shape, y.shape)
 
 # (442, 10) (442,)
 
-print(dataset.feature_names)
+ic(dataset.feature_names)
 
 # ['age', 'sex', 'bmi', 'bp', 's1', 's2', 's3', 's4', 's5', 's6']
 
-print(dataset.DESCR)
+ic(dataset.DESCR)
 
-print(np.min(y), np.max(y))
+ic(np.min(y), np.max(y))
 
 # 데이터 마저 나누기
 
 x_train, x_test, y_train, y_test = train_test_split(x, y, train_size=0.75, shuffle=True, random_state=47)
 
-# 모델구성
+# 모델 구성
 
 model = Sequential()
 model.add(Dense(128, input_shape=(10, )))
@@ -41,12 +52,12 @@ model.fit(x_train, y_train, batch_size=8, epochs=200, verbose=2, validation_spli
 
 # 평가 및 예측
 loss = model.evaluate(x_test, y_test)
-print("loss = ", loss)
+ic(loss)
 
 y_pred = model.predict(x_test)
 
-r2 = r2_score(y_test, y_pred)
-print('R2 = ', r2)
+r2_score = r2_score(y_test, y_pred)
+ic(r2_score)
 
 '''
 [엄청난 loss;;;]

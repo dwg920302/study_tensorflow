@@ -54,32 +54,41 @@ for filename in file_list:
 
     indexes = ['Country_Region', 'Confirmed', 'Deaths', 'Recovered']
 
-    if int(date) >= 200331:     # 2020년 4월 1일부터, 단 4월 1일의 확진자 수를 알려면 3월 31일 데이터가 필요함
+    if int(date) >= 200322:     # 2020년 3월 21 이전의 데이터는 Country_Region이 Country/Region으로 되어 있음
         file = file[indexes]
         file = file[file['Country_Region'] == 'Korea, South']
         file = file.drop('Country_Region', axis=1)
-        ic(file)
-        ls.append(retype_x1(filename))
-        ls = np.array(ls)
-        ls = np.append(ls, file)
-        ic(ls.shape)
-        arr = np.append(arr, np.array(ls))
-        ic(arr.shape)
     else:
-        # file = file['Country/Region', 'Confirmed', 'Deaths', 'Recovered']
-        # file = file[file['Country/Region'] == 'South Korea']
-        pass
+        file = file[['Country/Region', 'Confirmed', 'Deaths', 'Recovered']]
+        tmp = file
+        file = file[file['Country/Region'] == 'South Korea']
+        if file.empty == True:
+            file = tmp[tmp['Country/Region'] == 'Republic of Korea']
+        if file.empty == True:
+            file = tmp[tmp['Country/Region'] == 'Korea, South']
+        file = file.fillna('0.0')
+        file = file.drop('Country/Region', axis=1)
+
+    # ic(file)
+    # ls.append(retype_x1(filename)) # Date 뽑아서 넣는 코드인데, 비활성화함
+    ls = np.array(ls)
+    ls = np.append(ls, file)
+    ic(ls.shape)
+    arr = np.append(arr, np.array(ls))
+#    ic(arr.shape)
 
 print('-'*100)
 
-arr = arr.reshape(int(arr.shape[0]/4), 4) 
+ic(arr[:5])
+
+arr = arr.reshape(int(arr.shape[0]/3), 3) 
 ic(arr, arr.shape)  # (36X, 4)
 
 # 5~600개의 CSV 파일에서 일단 South Korea만 가져와서, np.array에 넣음
 
 # 빼온 걸 array 형태로 저장하여 CSV나 npy를 따로 만듦.
 
-columns = ['Date', 'Confirmed_Total', 'Deaths_Total', 'Recovered_Total']
+columns = ['Confirmed_Total', 'Deaths_Total', 'Recovered_Total']
 
 np.save('../_save/X1_COVID_KOR.npy', arr=arr)
 arr = pd.DataFrame(arr)
@@ -90,19 +99,19 @@ arr.to_csv('../_save/X1_COVID_KOR.csv', encoding='UTF-8')
 
 # X2 만들기
 
-# 기상청 날씨 데이터 (2020년 8월 1일부터)
+# 기상청 날씨 데이터 (2020년 1월 23일부터)
 
 # 인코딩이 되어있지 않아서 인코딩한 CSV를 다시 만듦
 
-filename = '../_data/COVID-19/OBS/OBS_ASOS_DD_20210804173000.csv'
+# filename = '../_data/COVID-19/OBS/OBS_ASOS_DD_20210805111544.csv'
 
-file = pd.read_csv(filename, encoding='euc_kr', low_memory=False)
+# file = pd.read_csv(filename, encoding='euc_kr', low_memory=False)
 
-ic(file.shape, file.head(), file.tail())
+# ic(file.shape, file.head(), file.tail())
 
-file.to_csv('../_data/COVID-19/OBS/OBS_encoded_20210804173000.csv', encoding='UTF-8')
+# file.to_csv('../_data/COVID-19/OBS/OBS_encoded_20210805111544.csv', encoding='UTF-8')
 
-filename = '../_data/COVID-19/OBS/OBS_encoded_20210804173000.csv'
+filename = '../_data/COVID-19/OBS/OBS_encoded_20210805111544.csv'
 
 # file = pd.read_csv(filename, encoding='euc_kr', low_memory=False)
 
@@ -143,7 +152,7 @@ for date in dates:
 
     ls = np.array([])
 
-    ls = np.append(ls, date)
+    # ls = np.append(ls, date) # Date 뽑아서 넣는 코드인데, 비활성화함
 
     for col in columns[1:]:
         tmp_avg = sum(tmp[col].map(lambda x: float(x))) / tmp.shape[0]
@@ -153,10 +162,15 @@ for date in dates:
         
         # 5,6,7번째 행을 최고기온에서 최고 온도차로 바꿈 (5 = 5-2, 6 = 6-3, 7 = 7-4)
 
+        # if(col == '최고기온(°C)'):    # Date가 포함되어 있던 것
+        #     tmp_avg -= float(ls[1])
+        #     tmp_min -= float(ls[2])
+        #     tmp_max -= float(ls[3])
+
         if(col == '최고기온(°C)'):
-            tmp_avg -= float(ls[1])
-            tmp_min -= float(ls[2])
-            tmp_max -= float(ls[3])
+            tmp_avg -= float(ls[0])
+            tmp_min -= float(ls[1])
+            tmp_max -= float(ls[2])
 
         ls = np.append(ls, (tmp_avg, tmp_min, tmp_max))
 
@@ -164,11 +178,11 @@ for date in dates:
 
 ic(arr, arr.shape) # arr.shape: (4758,)
 
-arr = arr.reshape(int(arr.shape[0]/13), 13) #  arr.shape: (366, 13)
+arr = arr.reshape(int(arr.shape[0]/12), 12) #  arr.shape: (366, 13)
 
 ic(arr, arr.shape) # arr.shape: (365, 13)
 
-columns = ['Date',
+columns = [
             'avg_temp_avg', 'avg_temp_min', 'avg_temp_max', 
             'tmp_diff_avg', 'tmp_diff_min', 'tmp_diff_max',
             'rainfall_avg', 'rainfall_min', 'rainfall_max',

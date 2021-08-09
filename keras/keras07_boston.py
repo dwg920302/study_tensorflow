@@ -2,11 +2,16 @@
 
 # sklearn에 제공되는 Dataset 몇 개 중 하나
 
+from icecream import ic
+
+from sklearn.datasets import load_boston
+
 from sklearn.model_selection import train_test_split
-from sklearn.metrics import r2_score
+
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense
-from sklearn.datasets import load_boston
+
+from sklearn.metrics import r2_score
 
 
 # 데이터
@@ -48,7 +53,6 @@ model.add(Dense(10, input_dim=13))
 model.add(Dense(13))
 model.add(Dense(1))
 
-
 # 컴파일 및 훈련
 
 model.compile(loss="mse", optimizer='adam')
@@ -58,15 +62,15 @@ model.fit(x_train, y_train, batch_size=1, epochs=500, verbose=1)
 # 평가(evaluate) 및 예측
 
 loss = model.evaluate(x_test, y_test)
-print('loss = ', loss)
+ic(loss)
 
 y_pred = model.predict(x_test)
 print('예측값 = ', y_pred)
 
 # R2 구하기
 
-r2 = r2_score(y_test, y_pred)
-print('R2 = ', r2)
+r2_score = r2_score(y_test, y_pred)
+ic(r2_score)
 
 '''
 [res] (epochs=250, batch_size=1)

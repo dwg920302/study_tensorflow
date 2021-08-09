@@ -1,8 +1,10 @@
 # keras-002 #2 [잘못된 예시]
 
+import numpy as np
+
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense
-import numpy as np
+
 
 x = np.array([1,2,3,4,5])
 y = np.array([1,2,4,3,5,6])
