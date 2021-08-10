@@ -28,7 +28,6 @@ print(dataset.describe())
 y = dataset['quality'].to_numpy()
 x = dataset.drop(columns='quality')
 
-x_train, x_test, y_train, y_test = train_test_split(x, y, train_size=1/5, shuffle=True, random_state=92)
 x_train, x_test, y_train, y_test = train_test_split(x, y, train_size=7/8, shuffle=True, random_state=92)
 
 scaler = StandardScaler()

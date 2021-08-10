@@ -6,6 +6,7 @@ from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense, Conv1D, Flatten, Dropout
 from icecream import ic
 import time
+from sklearn.metrics import r2_score
 from matplotlib import pyplot as plt
 
 from tensorflow.keras.optimizers import Adam
@@ -36,45 +37,48 @@ model.add(Dense(8, activation='relu'))
 model.add(Dense(1))
 
 # 3. comple fit // metrics 'acc'
-model.compile(loss='categorical_crossentropy', optimizer=Adam(lr=0.1), metrics=['accuracy'])
+model.compile(loss='mse', optimizer=Adam(lr=0.1))
 
-es = EarlyStopping(monitor='val_loss', patience=25, mode='min', verbose=1)
+es = EarlyStopping(monitor='val_loss', patience=51, mode='min', verbose=1, restore_best_weights=True)
 
 # ReduceLRonPlateau
-reduce_lr = ReduceLROnPlateau(monitor='val_loss', patience=5, mode='auto', verbose=1, factor=0.5)
+reduce_lr = ReduceLROnPlateau(monitor='val_loss', patience=10, mode='auto', verbose=1, factor=0.5)
 
 # Epoch 00013: ReduceLROnPlateau reducing learning rate to 0.05000000074505806.
 
 start_time = time.time()
-hist = model.fit(x_train, y_train, epochs=250, batch_size=512, verbose=2,
+hist = model.fit(x_train, y_train, epochs=500, verbose=2,
     validation_split=0.1, callbacks=[es, reduce_lr])
 elapsed_time = time.time() - start_time
 
-# 4. predict eval -> no need to
-
-loss = model.evaluate(x_test, y_test, batch_size=64)
+# 4. predict eval
+y_pred = model.predict(x_test)
+r2_score = r2_score(y_test, y_pred)
+result = model.evaluate(x_test, y_test)
 print('time : ', elapsed_time)
-print('loss[category] : ', loss[0])
-print('loss[accuracy] : ', loss[1])
+print('loss : ', result)
+print('r2_score : ', r2_score)
 
-plt.figure(figsize=(9, 5))
+# plt.figure(figsize=(9, 5))
 
-plt.subplot(2, 1, 1) # 2개의 plot 중 1행 1열
-plt.plot(hist.history['loss'], marker=',', c='red', label='loss')
-plt.plot(hist.history['val_loss'], marker=',', c='blue', label='val_loss')
-plt.grid()
-plt.title('loss')
-plt.xlabel('epoches')
-plt.ylabel('loss')
-plt.legend(loc='upper right')
+# plt.subplot(2, 1, 1) # 2개의 plot 중 1행 1열
+# plt.plot(hist.history['loss'], marker=',', c='red', label='loss')
+# plt.plot(hist.history['val_loss'], marker=',', c='blue', label='val_loss')
+# plt.grid()
+# plt.title('loss')
+# plt.xlabel('epoches')
+# plt.ylabel('loss')
+# plt.legend(loc='upper right')
 
-plt.subplot(2, 1, 2) # 2개의 plot 중 1행 2열
-plt.plot(hist.history['accuracy'])
-plt.plot(hist.history['val_accuracy'])
-plt.grid()
-plt.title('acc')
-plt.xlabel('epoches')
-plt.ylabel('acc')
-plt.legend(['accuracy', 'val_accuracy'])
+# plt.subplot(2, 1, 2) # 2개의 plot 중 1행 2열
+# plt.plot(hist.history['accuracy'])
+# plt.plot(hist.history['val_accuracy'])
+# plt.grid()
+# plt.title('acc')
+# plt.xlabel('epoches')
+# plt.ylabel('acc')
+# plt.legend(['accuracy', 'val_accuracy'])
 
-plt.show()
+# plt.show()
+
+# Issue ->  r2_score와 loss가 매번 제멋대로 튐

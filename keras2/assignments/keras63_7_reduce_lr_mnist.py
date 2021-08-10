@@ -14,8 +14,8 @@ from tensorflow.keras.callbacks import EarlyStopping, ReduceLROnPlateau
 # ic(x_train.shape, x_test.shape) # (50000, 32, 32, 3) (10000, 32, 32, 3)
 # ic(y_train.shape, y_test.shape) # (50000, 1) (10000, 1)
 
-x_train = x_train.reshape(50000, 32 * 32 * 3)/255. # (50000, 32, 32, 3)
-x_test = x_test.reshape(10000, 32 * 32 * 3)/255. # (10000, 32, 32, 3)
+x_train = x_train.reshape(60000, 28 * 28)/255. # (50000, 32, 32, 3)
+x_test = x_test.reshape(10000, 28 * 28)/255. # (10000, 32, 32, 3)
 
 # RGB값 (0-255) 을 0~1까지로 변경
 
@@ -30,7 +30,8 @@ one.fit(y_train)
 y_train = one.transform(y_train).toarray() # (50000, 100)
 y_test = one.transform(y_test).toarray() # (10000, 100)
 
-x_train = x_train.reshape(50000, 28, 28, 1)
+
+x_train = x_train.reshape(60000, 28, 28, 1)
 x_test = x_test.reshape(10000, 28, 28, 1)
 
 # 2. model
