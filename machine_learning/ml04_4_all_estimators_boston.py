@@ -26,7 +26,8 @@ print(dataset.feature_names)
 x = dataset.data
 y = dataset.target
 
-print(x.shape, y.shape)  # (150, 4) (150,)
+# x = np.load('../_save/_npy/k55_x_data_boston.npy')
+# y = np.load('../_save/_npy/k55_y_data_boston.npy')
 
 # Preprocessing
 
