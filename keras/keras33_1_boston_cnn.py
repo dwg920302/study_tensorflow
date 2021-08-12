@@ -14,7 +14,7 @@ x_train, x_test, y_train, y_test = train_test_split(x, y, train_size=7/8, shuffl
 
 # 데이터 전처리(preprocess)
 
-scaler = QuantileTransformer()
+scaler = StandardScaler()
 x_train = scaler.fit_transform(x_train)
 x_train = x_train.reshape(x_train.shape[0], x_train.shape[1], 1)
 x_test = scaler.transform(x_test)
@@ -25,9 +25,9 @@ print(x_train, y_train)
 model = Sequential()
 model.add(Conv1D(filters=32, kernel_size=1,                   
                         padding='same', 
-                        input_shape=(10, 1)))
+                        input_shape=(13, 1)))
 model.add(Conv1D(32, 1, padding='same'))
-# model.add(Dropout(0.1))               
+model.add(Dropout(0.1))               
 # model.add(MaxPool1D())
 model.add(GlobalAvgPool1D())
 model.add(Dense(1))
@@ -50,6 +50,6 @@ r2 = r2_score(y_test, y_predict)
 print('R^2 Score = ', r2)
 
 '''
-loss =  41.651798248291016
-R^2 Score =  0.2484872984874772
+loss =  38.2384147644043
+R^2 Score =  0.3100740633612753
 '''

@@ -8,7 +8,7 @@ import numpy as np
 import pandas as pd
 from sklearn.datasets import load_boston
 from sklearn.model_selection import train_test_split
-from sklearn.preprocessing import StandardScaler
+from sklearn.preprocessing import StandardScaler, PowerTransformer
 
 from sklearn.metrics import r2_score
 
@@ -34,8 +34,7 @@ y = dataset.target
 x_train, x_test, y_train, y_test = train_test_split(x, y, train_size=0.8, shuffle=True, random_state=32)
 
 scaler = StandardScaler()
-scaler.fit(x_train)
-x_train = scaler.transform(x_train)
+x_train = scaler.fit_transform(x_train)
 x_test = scaler.transform(x_test)
 
 # y 카테고리화 하지 않음 (auto)
@@ -125,7 +124,7 @@ ic| allAlgorithms_rg: [('ARDRegression', <class 'sklearn.linear_model._bayes.ARD
                         ('VotingRegressor', <class 'sklearn.ensemble._voting.VotingRegressor'>)]
 '''
 
-y_test = y_test.astype(np.float)
+# y_test = y_test.astype(np.float)
 
 # Regressor를 반복 사용 시에는 Classifier와 달리 r2_score를 구하는 과정에서 자꾸 float64 에러가 발생함
 
