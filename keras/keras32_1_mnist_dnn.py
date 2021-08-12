@@ -2,7 +2,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from tensorflow.keras.datasets import mnist
 from tensorflow.keras.models import Sequential
-from tensorflow.keras.layers import Dense, Dropout, Conv2D, Flatten, MaxPooling2D, GlobalAvgPool2D, DepthwiseConv2D
+from tensorflow.keras.layers import Dense, Dropout
 from tensorflow.keras.callbacks import EarlyStopping
 from sklearn.preprocessing import OneHotEncoder
 from sklearn.preprocessing import StandardScaler, MinMaxScaler, MaxAbsScaler, RobustScaler
