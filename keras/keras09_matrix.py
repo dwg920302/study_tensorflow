@@ -1,5 +1,6 @@
 # keras-009 [Matrix (2차원 Data)]
 
+from icecream import ic
 import numpy as np
 
 from tensorflow.keras.models import Sequential

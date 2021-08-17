@@ -66,9 +66,18 @@ r2_score = r2_score(y_test, y_predict)
 ic(r2_score)
 
 history = model.evals_result()
-ic(history, history.keys())
+val_keys = history.keys()
+eval_keys = history['validation_0'].keys()
 
-for key in history.keys():
-    data = np.array(history[key]['rmse'])
-    plt.plot(range(data.shape[0]), data)
-plt.show()
+# for key in history.keys():
+#     data = np.array(history[key]['rmse'])
+#     plt.plot(range(data.shape[0]), data)
+# plt.show()
+
+for eval_set in eval_keys:
+    char = 'XGBoost with '+str(eval_set)
+    plt.title(char)
+    for val in val_keys:
+        data = np.array(history[val][eval_set])
+        plt.plot(range(data.shape[0]), data)
+    plt.show()
