@@ -8,6 +8,7 @@
 # 2. 특정 값을 일괄적으로 넣어줌 (ex. 0, 1(앞의 값), 8(뒤의 값), 4.5(중위값))
 # 3. 보간
 # 4. 모델링 - predict(결측지들을 전부 빼고 훈련 -> 결측치를 predict)
+# 부스트는 결측치에 대해 비교적 자유로움
 
 from icecream import ic
 import pandas as pd
