@@ -4,6 +4,8 @@
 
 # 추후에, 레이어로 파라미터로 만들어볼 것 (Dense, Conv)
 
+from tensorflow.keras.optimizers import Adam
+
 from tensorflow.keras.datasets import mnist
 from tensorflow.keras.models import Model
 from tensorflow.keras.layers import Dense, Dropout, Input, Conv2D, Flatten, GlobalAvgPool2D
@@ -28,6 +30,8 @@ x_test = x_test.reshape(10000, 28*28).astype('float32')/255
 x_train = x_train.reshape(60000, 28, 28, 1)
 x_test = x_test.reshape(10000, 28, 28, 1)
 
+optimizer = Adam()
+
 def build_model(drop=0.5, optimizer='adam'):
     inputs = Input(shape=(28, 28, 1), name='input')
     x = Conv2D(512, kernel_size=(1, 1), padding='same', activation='relu', name='D1-CNN')(inputs) # (N, 4, 4, 10)
@@ -49,7 +53,8 @@ def build_model(drop=0.5, optimizer='adam'):
 def hyperparameter():
     batches = [5, 10, 15, 20, 25]
     optimizers = ['adam', 'rmsprop', 'adadelta']
-    dropout = [0.1, 0.2, 0.3]
+    # learning_rate = [0.1, 0.01, 0.001]
+    dropout = [0, 0.125, 0.25, 0.375, 0.5]
     return {"batch_size" : batches, "optimizer" : optimizers,
             "drop" : dropout}
 
