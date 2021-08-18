@@ -5,6 +5,8 @@
 # 1. 삭제
 # 2. Nan 처리 후 -> 보간        // linear
 # 3. 결측치 처리 방법과 유사하게
+# 4. 스케일러
+# 5. 모델링 : tree계열, DT, RF, XG, LGBM
 
 from icecream import ic
 
@@ -29,10 +31,11 @@ def outliers(data_out):
 outliers_loc = outliers(arr)
 
 ic(outliers_loc)
-
+# outlier의 개수를 count하는 기능을 추가할 것
 
 # 시각화 (BoxPlot으로)
 
 plt.boxplot(arr)
 
 plt.show()
+
