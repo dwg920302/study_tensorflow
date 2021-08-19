@@ -34,8 +34,8 @@ score = model_1.score(x_test, y_test)
 ic(score)   # ic| score: 0.6653061224489796
 
 y_pred = model_1.predict(x_test)
-f1_score = f1_score(y_test, y_pred, average='macro')
-ic(f1_score)
+f1score = f1_score(y_test, y_pred, average='macro')
+ic(f1score)
 
 
 # Smote로 데이터 증폭 후 결과 비교 (value 별로 개수를 맞춰주기)
@@ -60,5 +60,5 @@ ic(score)   # ic| score: 0.6353741496598639
 
 y_pred = model_2.predict(x_test)
 ic(type(y_pred), y_pred)
-f1_score = f1_score(y_test, y_pred, average='macro')
-ic(f1_score)
+f1score = f1_score(y_test, y_pred, average='macro')
+ic(f1score)

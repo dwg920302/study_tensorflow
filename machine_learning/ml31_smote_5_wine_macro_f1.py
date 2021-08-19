@@ -18,8 +18,8 @@ dataset = dataset.values
 
 ic(type(dataset))
 
-x = dataset[:, :11]
-y = dataset[:, 11]
+x = dataset[:, :11].astype('float32')
+y = dataset[:, 11].astype('float32')
 
 for i in range(len(y)):
     if y[i] == 9:
@@ -45,8 +45,8 @@ score = model_1.score(x_test, y_test)
 ic(score)   # ic| score: 0.6653061224489796
 
 y_pred = model_1.predict(x_test)
-f1_score = f1_score(y_test, y_pred, average='macro')
-ic(f1_score)
+f1score = f1_score(y_test, y_pred, average='macro')
+ic(f1score)
 
 
 # Smote로 데이터 증폭 후 결과 비교 (value 별로 개수를 맞춰주기)
@@ -69,27 +69,23 @@ model_2.fit(x_smote_train, y_smote_train, eval_metric='mlogloss')
 score = model_2.score(x_test, y_test)
 ic(score)   # ic| score: 0.6353741496598639
 
-y_pred = model_2.predict(x_test)
-ic(type(y_pred), y_pred)
-f1_score = f1_score(y_test, y_pred, average='macro')
-ic(f1_score)
+y_pred = model_2.predict(x_test).astype('float32')
+f1score = f1_score(y_test, y_pred, average='macro')
+ic(f1score)
 
-# 7, 8, 9 를 7로 줄였을 경우
-# ic| score: 0.6605442176870748
-# ic| score: 0.6476190476190476
 
-# [7, 8, 9] 를 7, [3, 4]를 4로 줄였을 경우
-# ic| score: 0.6659863945578232
-# ic| score: 0.6523809523809524
-
-# [7, 8, 9] 를 7, [3, 4, 5]를 5로 줄였을 경우
-# ic| score: 0.7129251700680272
-# score: 0.6965986394557823
-
-# [7, 8, 9] 를 7, [3, 4, 5, 6]을 6으로 줄였을 경우
-# ic| score: 0.8673469387755102
-# ic| score: 0.8476190476190476
-
-# [6, 7, 8, 9] 를 6, [3, 4, 5]를 5으로 줄였을 경우
-# ic| score: 0.827891156462585
-# ic| score: 0.8285714285714286
+'''
+ic| pd.Series(y_train).value_counts(): 6.0    1538
+                                       5.0    1148
+                                       7.0     742
+                                       dtype: int64
+ic| score: 0.7129251700680272
+ic| f1score: 0.7057516118670127
+ic| pd.Series(y_smote_train).value_counts(): 6.0    1538
+                                             5.0    1538
+                                             7.0    1538
+                                             dtype: int64
+ic| x_smote_train.shape: (4614, 11), y_smote_train.shape: (4614,)
+ic| score: 0.6965986394557823
+ic| f1score: 0.6943910669842026
+'''

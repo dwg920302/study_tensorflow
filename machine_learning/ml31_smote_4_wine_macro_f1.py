@@ -50,9 +50,8 @@ score = model_1.score(x_test, y_test)
 ic(score)   # ic| score: 0.6653061224489796
 
 y_pred = model_1.predict(x_test)
-ic(type(y_pred), y_pred)
-f1_score = f1_score(y_test, y_pred, average='macro')
-ic(f1_score)
+f1score = f1_score(y_test, y_pred, average='macro')
+ic(f1score)
 
 
 # Smote로 데이터 증폭 후 결과 비교 (value 별로 개수를 맞춰주기)
@@ -76,6 +75,20 @@ score = model_2.score(x_test, y_test)
 ic(score)   # ic| score: 0.6353741496598639
 
 y_pred = model_2.predict(x_test)
-ic(y_pred, type(y_pred), type(y_test))
-f1_score = f1_score(y_test, y_pred, average='macro')
-ic(f1_score)
+f1score = f1_score(y_test, y_pred, average='macro')
+ic(f1score)
+
+'''
+ic| pd.Series(y_train).value_counts(): 1.0    3174
+                                       0.0     128
+                                       2.0     126
+                                       dtype: int64
+ic| score: 0.9401360544217687
+ic| f1score: 0.5767121245004289
+ic| pd.Series(y_smote_train).value_counts(): 1.0    3174
+                                             2.0    3174
+                                             0.0    3174
+                                             dtype: int64
+ic| x_smote_train.shape: (9522, 11), y_smote_train.shape: (9522,)
+ic| score: 0.9238095238095239
+'''
