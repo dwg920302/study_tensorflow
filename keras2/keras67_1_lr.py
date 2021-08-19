@@ -2,8 +2,9 @@ weight = 0.5
 in_put = 0.5
 goal_prediction = 0.8
 # lr = 0.1
-lr = 0.01
-epochs = 300
+lr = 0.1
+# lr = 0.001
+epochs = 1000
 
 # 구동되는 원리 (추정)
 
@@ -209,4 +210,36 @@ for iteration in range(epochs):
 [Epoch 148] Error : 2.4999999999995603e-05      Prediction : 0.7950000000000005
 [Epoch 149] Error : 1.9721522630525295e-31      Prediction : 0.8000000000000005
 [Epoch 150] Error : 2.4999999999995603e-05      Prediction : 0.7950000000000005
+
+(weight 1))
+[Epoch 1] Error : 0.09000000000000002   Prediction : 0.5
+[Epoch 2] Error : 0.0625        Prediction : 0.55
+[Epoch 3] Error : 0.03999999999999998   Prediction : 0.6000000000000001
+[Epoch 4] Error : 0.022499999999999975  Prediction : 0.6500000000000001
+[Epoch 5] Error : 0.009999999999999974  Prediction : 0.7000000000000002
+[Epoch 6] Error : 0.0024999999999999823 Prediction : 0.7500000000000002
+[Epoch 7] Error : 4.930380657631324e-32 Prediction : 0.8000000000000003
+[Epoch 8] Error : 0.0024999999999999823 Prediction : 0.7500000000000002
+[Epoch 9] Error : 4.930380657631324e-32 Prediction : 0.8000000000000003
+[Epoch 10] Error : 0.0024999999999999823        Prediction : 0.7500000000000002
+[Epoch 11] Error : 4.930380657631324e-32        Prediction : 0.8000000000000003
+[Epoch 12] Error : 0.0024999999999999823        Prediction : 0.7500000000000002
+[Epoch 13] Error : 4.930380657631324e-32        Prediction : 0.8000000000000003
+[Epoch 14] Error : 0.0024999999999999823        Prediction : 0.7500000000000002
+[Epoch 15] Error : 4.930380657631324e-32        Prediction : 0.8000000000000003
+[Epoch 16] Error : 0.0024999999999999823        Prediction : 0.7500000000000002
+[Epoch 17] Error : 4.930380657631324e-32        Prediction : 0.8000000000000003
+[Epoch 18] Error : 0.0024999999999999823        Prediction : 0.7500000000000002
+[Epoch 19] Error : 4.930380657631324e-32        Prediction : 0.8000000000000003
+[Epoch 20] Error : 0.0024999999999999823        Prediction : 0.7500000000000002
+[Epoch 21] Error : 4.930380657631324e-32        Prediction : 0.8000000000000003
+[Epoch 22] Error : 0.0024999999999999823        Prediction : 0.7500000000000002
+[Epoch 23] Error : 4.930380657631324e-32        Prediction : 0.8000000000000003
+[Epoch 24] Error : 0.0024999999999999823        Prediction : 0.7500000000000002
+[Epoch 25] Error : 4.930380657631324e-32        Prediction : 0.8000000000000003
+[Epoch 26] Error : 0.0024999999999999823        Prediction : 0.7500000000000002
+[Epoch 27] Error : 4.930380657631324e-32        Prediction : 0.8000000000000003
+[Epoch 28] Error : 0.0024999999999999823        Prediction : 0.7500000000000002
+[Epoch 29] Error : 4.930380657631324e-32        Prediction : 0.8000000000000003
+[Epoch 30] Error : 0.0024999999999999823        Prediction : 0.7500000000000002
 '''
