@@ -20,8 +20,7 @@ datasets = load_boston()
 x = datasets.data
 y = datasets.target
 
-print(x.shape)
-print(y.shape)
+ic(x.shape, y.shape)
 
 print(datasets.feature_names)
 print(datasets.DESCR)

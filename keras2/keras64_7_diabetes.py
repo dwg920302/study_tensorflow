@@ -2,38 +2,20 @@ from tensorflow.keras.optimizers import Adam
 
 from sklearn.model_selection import train_test_split
 
+from sklearn.datasets import load_diabetes
 from tensorflow.keras.models import Model
 from tensorflow.keras.layers import Dense, Dropout, Input, Conv2D, Flatten, GlobalAvgPool2D
 
-from sklearn.preprocessing import OneHotEncoder
+from tensorflow.keras.utils import to_categorical
 
 from tensorflow.keras.wrappers.scikit_learn import KerasClassifier
 
 from sklearn.model_selection import GridSearchCV, RandomizedSearchCV
 
 from icecream import ic
-import pandas as pd
 
 
-dataset = pd.read_csv('../_data/winequality-white.csv',
-                        index_col=None, header=0, sep=';')
-
-ic(dataset.shape, dataset.describe)
-
-dataset = dataset.values
-
-ic(type(dataset))
-
-x = dataset[:, :11]
-y = dataset[:, 11]
-
-print(x.shape, y.shape)
-
-ic(y)
-
-y = OneHotEncoder(sparse=False).fit_transform(y.reshape(-1, 1))
-
-ic(y[:, :5], y[:, -5:])
+x, y = load_diabetes(return_X_y=True)
 
 print(x.shape, y.shape)
 
@@ -41,20 +23,20 @@ x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.2, shuffle
 
 ic(x_train.shape, x_test.shape, y_train.shape, y_test.shape)
 
-optimizer = Adam(learning_rate=0.01)
+optimizer = Adam()
 
 def build_model(drop=0.5, optimizer='adam'):
-    inputs = Input(shape=(11, ), name='input')
-    x = Dense(512, activation='relu', name='hidden1')(inputs)
+    inputs = Input(shape=(10, ), name='input')
+    x = Dense(256, activation='relu', name='hidden1')(inputs)
     x = Dropout(drop)(x)
-    x = Dense(128, activation='relu', name='hidden2')(x)
+    x = Dense(64, activation='relu', name='hidden2')(x)
     x = Dropout(drop)(x)
-    x = Dense(32, activation='relu', name='hidden3')(x)
+    x = Dense(16, activation='relu', name='hidden3')(x)
     x = Dropout(drop)(x)
-    outputs = Dense(7, activation='softmax', name='outputs')(x)
+    outputs = Dense(1, activation='softmax', name='outputs')(x)
 
     model = Model(inputs=inputs, outputs=outputs)
-    model.compile(optimizer=optimizer, loss='categorical_crossentropy', metrics=['acc'])
+    model.compile(optimizer=optimizer, loss='mse', metrics=['acc'])
 
     return model
 
@@ -88,9 +70,11 @@ acc = model3.score(x_test, y_test)
 print("Final Score : ", acc)
 
 '''
-{'batch_size': 5, 'drop': 0, 'optimizer': 'rmsprop'}
-<tensorflow.python.keras.wrappers.scikit_learn.KerasClassifier object at 0x000001DF365DD790>
-0.464269095659256
-196/196 [==============================] - 0s 2ms/step - loss: 1.2143 - acc: 0.4745
-Final Score :  0.47448980808258057
+{'batch_size': 1, 'drop': 0, 'optimizer': 'adam'}
+<tensorflow.python.keras.wrappers.scikit_learn.KerasClassifier object at 0x00000240878AF070>
+0.0
+89/89 [==============================] - 0s 1ms/step - loss: 9791.7188 - acc: 0.0112
+Final Score :  0.01123595517128706
+
+# 뭔가 잘못된거 같음.
 '''
