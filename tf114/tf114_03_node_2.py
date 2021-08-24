@@ -30,3 +30,6 @@ ic| session.run(node_add): 5.0
     session.run(node_mul): 6.0
     session.run(node_div): 0.6666667
 '''
+
+ic(session.run([node_add, node_sub, node_mul, node_div]))
+# ic| session.run([node_add, node_sub, node_mul, node_div]): [5.0, -1.0, 6.0, 0.6666667]

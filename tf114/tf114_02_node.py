@@ -1,3 +1,5 @@
+# tf 1.14버전에서만 돌아가는 코드 (현재 쓰이는 2 버전에서는 안됨)
+
 import tensorflow as tf
 
 from icecream import ic
