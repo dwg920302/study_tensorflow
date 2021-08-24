@@ -21,10 +21,12 @@ optimizer = tf.train.GradientDescentOptimizer(learning_rate=0.01)
 
 train = optimizer.minimize(loss)
 
-session = tf.Session()
-session.run(tf.global_variables_initializer())  # 초기화
+# session = tf.Session()
 
-for step in range(2001):
-    session.run(train)
-    if step % 20 == 0:
-        print(step, session.run(loss), session.run(w), session.run(b))
+with tf.Session() as session:
+    session.run(tf.global_variables_initializer())  # 초기화
+
+    for step in range(2001):
+        session.run(train)
+        if step % 20 == 0:
+            print(step, session.run(loss), session.run(w), session.run(b))

@@ -25,7 +25,7 @@ datagen = ImageDataGenerator(
 # train 내부 폴더 -> y의 라벨로 자동 지정됨
 # x, y 자동 생성
 data = datagen.flow_from_directory(
-    '../_data/horse_or_human',
+    '../_data/cat_dog',
     target_size=(256, 256),
     batch_size=5000,
     class_mode='categorical',
@@ -102,11 +102,12 @@ print('accuracy : ', loss[1])
 
 '''
 epoch 20
-ic| elapsed_time: 135.26268029212952
-7/7 [==============================] - 0s 25ms/step - loss: 0.5690 - accuracy: 0.7136
-loss :  0.5689570307731628
-accuracy :  0.7135922312736511
-7/7 [==============================] - 0s 25ms/step - loss: 0.5150 - accuracy: 0.7767
-loss :  0.5150193572044373
-accuracy :  0.7766990065574646
+ic| elapsed_time: 34.65211296081543
+7/7 [==============================] - 0s 27ms/step - loss: 0.5774 - accuracy: 0.6893
+loss :  0.5774344801902771
+accuracy :  0.6893203854560852
+ic| elapsed_time: 34.63887333869934
+7/7 [==============================] - 0s 29ms/step - loss: 0.5420 - accuracy: 0.7524
+loss :  0.541965901851654
+accuracy :  0.7524271607398987
 '''
