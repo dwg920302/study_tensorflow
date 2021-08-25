@@ -23,7 +23,7 @@ hypothesis = x_train * w + b
 
 loss = tf.reduce_mean(tf.square(hypothesis - y_train))  # mse
 
-optimizer = tf.train.GradientDescentOptimizer(learning_rate=0.17115)
+optimizer = tf.train.GradientDescentOptimizer(learning_rate=0.17325)
 
 # optimizer = tf.train.AdamOptimizer(learning_rate=1/10)
 
@@ -41,15 +41,16 @@ for step in range(epochs):
     # print(step, session.run(loss), session.run(w), session.run(b))
     
 # Predict 추가
-x_test = 4
+x_test_set = [[4], [5, 6], [6, 7, 8]]
 
-pred_hypothesis = tf.norm((x_test * w_val) + b_val)
+pred_hypothesis = x_test * w_val + b_val
 
-pred = session.run(pred_hypothesis)
+for x_test_value in x_test_set:
+    pred = session.run(pred_hypothesis, feed_dict={x_test:x_test_value})
 
-test = optimizer.minimize(loss)
+    test = optimizer.minimize(loss)
 
-print(pred)
+    print(pred)
 
 '''
 lr = 1/7 (0.142857...)
@@ -156,4 +157,19 @@ lr = 0.17115
 99 9.9309695e-08 [2.0003486] [0.9992015]
 100 9.124394e-08 [2.0003386] [0.9992362]
 9.00059
+
+lr = 0.17325
+91 1.7371718e-05 [1.9965934] [1.0041184]
+92 1.4999976e-05 [1.9992479] [1.0050522]
+93 1.2965421e-05 [1.9969629] [1.0038228]
+94 1.121888e-05 [1.9992248] [1.0046029]
+95 9.718596e-06 [1.9972885] [1.0035452]
+96 8.428285e-06 [1.9992162] [1.0041959]
+97 7.317787e-06 [1.9975759] [1.0032852]
+98 6.3611546e-06 [1.9992191] [1.0038267]
+99 5.5363366e-06 [1.9978299] [1.003042]
+100 4.8251554e-06 [1.9992309] [1.0034918]
+[9.000415]
+[10.999646 12.998877]
+[12.998877 14.998107 16.99734 ]
 '''
