@@ -14,13 +14,13 @@ x = tf.compat.v1.placeholder(tf.float32, shape=[None, 2])
 y = tf.compat.v1.placeholder(tf.float32, shape=[None, 1])
 
 # Hidden Layer(s) + hypothesis (layer)
-w_1 = tf.Variable(tf.random.normal([2, 16]), name='weight_1')    # Node 3개
-b_1 = tf.Variable(tf.random.normal([16]), name='bias_1')         # 행렬 연산을 함
+w_1 = tf.Variable(tf.random.normal([2, 16]), name='weight_1')    # Node 16개
+b_1 = tf.Variable(tf.random.normal([1, 16]), name='bias_1')         # 행렬 연산을 함
 
 layer_1 = tf.matmul(x, w_1) + b_1    # linear
 
-w_2 = tf.Variable(tf.random.normal([16, 16]), name='weight_2')    # Node 4개
-b_2 = tf.Variable(tf.random.normal([16]), name='bias_2')         # 앞 노드가 3개였으므로 3개로 받고, 다음 노드 수(4개)를 정함
+w_2 = tf.Variable(tf.random.normal([16, 16]), name='weight_2')    # Node 16개
+b_2 = tf.Variable(tf.random.normal([1, 16]), name='bias_2')         # 앞 노드가 16개였으므로 16개로 받고, 다음 노드 수(16개)를 정함
 
 layer_2 = tf.matmul(layer_1, w_2) + b_2    # nan jungmal sigmoid
 
