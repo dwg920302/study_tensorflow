@@ -21,8 +21,8 @@ ic(x_data.shape, y_data.shape)
 # Model
 node_layer_input = 28 * 28
 node_layer_1 = 256
-node_layer_2 = 100
-node_layer_3 = 32
+node_layer_2 = 128
+node_layer_4 = 32
 node_layer_output = 10
 
 x = tf.compat.v1.placeholder(tf.float32, shape=[None, node_layer_input])
@@ -48,17 +48,17 @@ b_2 = tf.Variable(tf.random.normal([node_layer_2], stddev=0.1, name='bias_2'))
 
 layer_2 = tf.nn.relu(tf.matmul(layer_1, w_2) + b_2)     # relu
 
-layer_3 = tf.nn.dropout(layer_2, keep_prob=1/2)
+layer_3 = tf.nn.dropout(layer_2, keep_prob=1/4)
 
-w_3 = tf.Variable(tf.random.normal([node_layer_2, node_layer_3], stddev=0.1, name='weight_3'))
-b_3 = tf.Variable(tf.random.normal([node_layer_3], stddev=0.1, name='bias_3'))
+w_3 = tf.Variable(tf.random.normal([node_layer_2, node_layer_4], stddev=0.1, name='weight_3'))
+b_3 = tf.Variable(tf.random.normal([node_layer_4], stddev=0.1, name='bias_3'))
 
 layer_4 = tf.nn.relu(tf.matmul(layer_3, w_3) + b_3)     # relu
 
-layer_5 = tf.nn.dropout(layer_4, keep_prob=1/2)
+layer_5 = tf.nn.dropout(layer_4, keep_prob=1/4)
 
 # Output Layer
-w_out = tf.Variable(tf.random.normal([node_layer_3, node_layer_output], stddev=0.1, name='weight_out'))
+w_out = tf.Variable(tf.random.normal([node_layer_4, node_layer_output], stddev=0.1, name='weight_out'))
 b_out = tf.Variable(tf.random.normal([node_layer_output], stddev=0.1, name='bias_out'))
 
 # output_layer = tf.nn.softmax(tf.matmul(layer_3, w_out) + b_out)
@@ -66,18 +66,18 @@ output_layer = tf.sigmoid(tf.matmul(layer_5, w_out) + b_out)
 
 loss = tf.reduce_mean(-tf.reduce_sum(y * tf.math.log(output_layer), axis=1))   # categorical_crossentropy
 
-predict = tf.cast(output_layer > 0.5, dtype=tf.float32)
-accuracy = tf.reduce_mean(tf.cast(tf.equal(predict, y), dtype=tf.float32))
+# predict = tf.cast(output_layer > 0.5, dtype=tf.float32)
+# accuracy = tf.reduce_mean(tf.cast(tf.equal(predict, y), dtype=tf.float32))
 
-optimizer = tf.train.GradientDescentOptimizer(learning_rate=1e-4).minimize(loss)
+train = tf.train.GradientDescentOptimizer(learning_rate=0.001).minimize(loss)
 
 session = tf.compat.v1.Session()
 session.run(tf.global_variables_initializer())
 
-epochs = 500 + 1
+epochs = 100 + 1
 
 for epoch in range(epochs):
-    _, loss_val = session.run([optimizer, loss],
+    _, loss_val = session.run([train, loss],
     feed_dict={x:x_data, y:y_data})
 
     print('[ epoch', epoch, ']')
