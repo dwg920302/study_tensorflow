@@ -56,17 +56,17 @@ train = tf.train.GradientDescentOptimizer(learning_rate=0.01).minimize(loss)
 session = tf.compat.v1.Session()
 session.run(tf.global_variables_initializer())
 
-epochs = 500 + 1
+epochs = 1000 + 1
 
 for epoch in range(epochs):
     _, loss_val = session.run([train, loss], feed_dict={x:x_train, y:y_train})
 
-    print('[ epoch', epoch, ']')
-    ic(loss_val)
+    # print('[ epoch', epoch, ']')
+    # ic(loss_val)
 
-    # if epoch % 10 == 0:
-    #     print('[epoch', epoch, ']')
-    #     ic(loss_val)
+    if epoch % 10 == 0:
+        print('[ epoch', epoch, ']')
+        ic(loss_val)
 
 # results = session.run([output_layer], feed_dict = {x:x_test})
 # ic(results)
@@ -79,28 +79,27 @@ print('accuracy_score: ', accuracy_score(y_test, y_pred))
 session.close()
 
 '''
-[ epoch 490 ]
-ic| loss_val: 0.75430715
-[ epoch 491 ]
-ic| loss_val: 0.7533952
-[ epoch 492 ]
-ic| loss_val: 0.7524868
-[ epoch 493 ]
-ic| loss_val: 0.7515818
-[ epoch 494 ]
-ic| loss_val: 0.75068045
-[ epoch 495 ]
-ic| loss_val: 0.74978256
-[ epoch 496 ]
-ic| loss_val: 0.748888
-[ epoch 497 ]
-ic| loss_val: 0.74799687
-[ epoch 498 ]
-ic| loss_val: 0.74710906
-[ epoch 499 ]
-ic| loss_val: 0.74622446
-[ epoch 500 ]
-ic| loss_val: 0.7453431
-accuracy_score:  0.8173
-PS D:\study> 
+[ epoch 900 ]
+ic| loss_val: 0.54542494
+[ epoch 910 ]
+ic| loss_val: 0.5426002
+[ epoch 920 ]
+ic| loss_val: 0.5398337
+[ epoch 930 ]
+ic| loss_val: 0.5371233
+[ epoch 940 ]
+ic| loss_val: 0.53446704
+[ epoch 950 ]
+ic| loss_val: 0.53186363
+[ epoch 960 ]
+ic| loss_val: 0.5293114
+[ epoch 970 ]
+ic| loss_val: 0.5268089
+[ epoch 980 ]
+ic| loss_val: 0.5243546
+[ epoch 990 ]
+ic| loss_val: 0.5219467
+[ epoch 1000 ]
+ic| loss_val: 0.51958436
+accuracy_score:  0.8662
 '''
