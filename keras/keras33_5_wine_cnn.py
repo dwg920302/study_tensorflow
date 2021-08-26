@@ -47,7 +47,7 @@ model.add(Conv1D(256, (1, ), padding='same', activation='relu'))
 model.add(Conv1D(32, (1, ), padding='same'))
 # model.add(MaxPool1D())
 model.add(GlobalAvgPool1D())
-model.add(Dense(7, activation='linear'))
+model.add(Dense(7, activation='softmax'))
     
 # es = EarlyStopping(monitor='loss', patience=50, mode='min', verbose=1)
 
@@ -62,4 +62,8 @@ loss = model.evaluate(x_test, y_test)
 
 print('loss = ', loss[0], ', accuracy = ', loss[1])
 
-# 6.025832176208496 , accuracy =  0.028309741988778114
+'''
+Epoch 00085: early stopping
+38/38 [==============================] - 0s 4ms/step - loss: 1.1953 - accuracy: 0.4846
+loss =  1.1952906847000122 , accuracy =  0.4845961630344391
+'''
